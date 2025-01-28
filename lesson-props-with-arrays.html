@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرح Props مع المصفوفات في React</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 1em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5em;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-top: 1.5em;
+        }
+
+        h3 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-top: 1.2em;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            direction: ltr;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.1em;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        .note {
+            background-color: #e7f3fe;
+            border-right: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .example-output {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .step {
+            background-color: #f1f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .step-number {
+            background-color: #2196F3;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+
+        code {
+            background-color: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            color: #e83e8c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>شرح Props مع المصفوفات في React</h1>
+
+        <div class="note">
+            في هذا الدرس، سنتعلم كيفية استخدام Props مع المصفوفات في React لعرض قائمة من البيانات بشكل ديناميكي.
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">١</span> تعريف مكون التحية (Greeting Component)</h2>
+            <p>
+                نقوم بإنشاء مكون يستقبل مصفوفة من الأشخاص كـ prop ويعرض معلوماتهم:
+            </p>
+            <div class="code-block">
+                <pre><span class="keyword">function</span> <span class="function">Greeting</span>({ <span class="punctuation">people</span> }) {
+    <span class="keyword">return</span> (
+        <span class="punctuation">&lt;div&gt;</span>
+            <span class="punctuation">&lt;h3&gt;</span>قائمة الأشخاص:<span class="punctuation">&lt;/h3&gt;</span>
+            {people.map((person, index) => (
+                <span class="punctuation">&lt;div</span> key={index}<span class="punctuation">&gt;</span>
+                    مرحباً {person.name}، عمرك {person.age} سنة.
+                <span class="punctuation">&lt;/div&gt;</span>
+            ))}
+        <span class="punctuation">&lt;/div&gt;</span>
+    );
+}</pre>
+            </div>
+            <div class="note">
+                <strong>شرح الكود:</strong>
+                <ul>
+                    <li>نستخدم <code>{ people }</code> للحصول على المصفوفة من الـ props</li>
+                    <li>نستخدم <code>map</code> للتكرار على كل عنصر في المصفوفة</li>
+                    <li>نستخدم <code>key</code> لتعريف كل عنصر بشكل فريد (مطلوب في React)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">٢</span> إنشاء مصفوفة البيانات</h2>
+            <p>
+                نقوم بإنشاء مصفوفة تحتوي على كائنات تمثل بيانات الأشخاص:
+            </p>
+            <div class="code-block">
+                <pre><span class="keyword">function</span> <span class="function">App</span>() {
+    <span class="keyword">const</span> <span class="punctuation">peopleList</span> = [
+        { name: "أحمد", age: 25 },
+        { name: "سارة", age: 30 },
+        { name: "محمد", age: 35 },
+        { name: "نور", age: 28 }
+    ];
+
+    <span class="keyword">return</span> <span class="punctuation">&lt;Greeting</span> people={peopleList} <span class="punctuation">/&gt;</span>;
+}</pre>
+            </div>
+            <div class="note">
+                <strong>نقاط مهمة:</strong>
+                <ul>
+                    <li>كل شخص يمثل بكائن يحتوي على خاصيتي <code>name</code> و <code>age</code></li>
+                    <li>نمرر المصفوفة كاملة كـ prop باسم <code>people</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">٣</span> النتيجة النهائية</h2>
+            <p>عند تشغيل التطبيق، سنرى النتيجة التالية:</p>
+            <div class="example-output">
+                <h3>قائمة الأشخاص:</h3>
+                <div>مرحباً أحمد، عمرك 25 سنة.</div>
+                <div>مرحباً سارة، عمرك 30 سنة.</div>
+                <div>مرحباً محمد، عمرك 35 سنة.</div>
+                <div>مرحباً نور، عمرك 28 سنة.</div>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">٤</span> المميزات الرئيسية</h2>
+            <ul>
+                <li><strong>إعادة الاستخدام:</strong> يمكن استخدام نفس المكون مع بيانات مختلفة</li>
+                <li><strong>الديناميكية:</strong> يمكن تغيير البيانات بسهولة دون تغيير المكون</li>
+                <li><strong>الصيانة:</strong> سهولة تحديث وصيانة الكود</li>
+                <li><strong>القابلية للتوسع:</strong> يمكن إضافة المزيد من الأشخاص بسهولة</li>
+            </ul>
+        </div>
+
+        <div class="note">
+            <h3>نصائح مهمة:</h3>
+            <ol>
+                <li>دائماً استخدم <code>key</code> فريد عند استخدام <code>map</code> في React</li>
+                <li>حاول تنظيم البيانات في مصفوفة من الكائنات لسهولة التعامل معها</li>
+                <li>استخدم أسماء واضحة للـ props والمتغيرات</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">٥</span> مثال تفاعلي</h2>
+            <p>جرب المثال مباشرة:</p>
+            <div id="live-demo" class="example-output">
+                <!-- React will render here -->
+            </div>
+
+            <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+            <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+            <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+            <script type="text/babel">
+                function Greeting({ people }) {
+                    return (
+                        <div>
+                            <h3>قائمة الأشخاص:</h3>
+                            {people.map((person, index) => (
+                                <div key={index} className="person-item">
+                                    مرحباً {person.name}، عمرك {person.age} سنة.
+                                </div>
+                            ))}
+                        </div>
+                    );
+                }
+
+                function App() {
+                    const peopleList = [
+                        { name: "أحمد", age: 25 },
+                        { name: "سارة", age: 30 },
+                        { name: "محمد", age: 35 },
+                        { name: "نور", age: 28 }
+                    ];
+
+                    return <Greeting people={peopleList} />;
+                }
+
+                const root = ReactDOM.createRoot(document.getElementById('live-demo'));
+                root.render(<App />);
+            </script>
+
+            <style>
+                .person-item {
+                    padding: 10px;
+                    margin: 5px 0;
+                    background-color: #fff;
+                    border: 1px solid #e1e4e8;
+                    border-radius: 6px;
+                    transition: all 0.3s ease;
+                }
+
+                .person-item:hover {
+                    background-color: #f6f8fa;
+                    transform: translateX(-5px);
+                    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+                }
+
+                #live-demo {
+                    background-color: #fafbfc;
+                    border: 2px solid #e1e4e8;
+                    border-radius: 8px;
+                    padding: 20px;
+                    margin: 20px 0;
+                }
+
+                #live-demo h3 {
+                    color: #2196F3;
+                    margin-top: 0;
+                    margin-bottom: 15px;
+                }
+            </style>
+        </div>
+
+        <div class="step">
+            <h2><span class="step-number">٦</span> تمارين عملية</h2>
+            <div class="note">
+                جرب التعديلات التالية على الكود:
+                <ol>
+                    <li>أضف شخصاً جديداً إلى القائمة</li>
+                    <li>أضف خاصية جديدة لكل شخص (مثل المدينة أو الوظيفة)</li>
+                    <li>غير طريقة عرض البيانات (مثلاً أضف ألواناً أو أيقونات)</li>
+                    <li>أضف زر لفرز القائمة حسب العمر أو الاسم</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="note">
+            <h3>ملخص الدرس:</h3>
+            <ul>
+                <li>تعلمنا كيفية استخدام Props مع المصفوفات في React</li>
+                <li>استخدمنا map للتكرار على عناصر المصفوفة</li>
+                <li>أنشأنا مكوناً قابلاً لإعادة الاستخدام</li>
+                <li>تعرفنا على أهمية استخدام key في القوائم</li>
+            </ul>
+        </div>
+
+        <div class="nav-links">
+            <a href="lesson-props-explanation.html" class="nav-link">← الدرس السابق</a>
+            <a href="visual-comparison.html" class="nav-link">المقارنة المرئية →</a>
+        </div>
+    </div>
+</body>
+</html>

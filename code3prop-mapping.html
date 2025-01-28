@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- React CDN Links -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+</head>
+<body>
+    <h2>مثال React</h2>
+    <div id="root" dir="rtl"></div>
+
+    <!-- React Example -->
+    <script type="text/babel">
+        // Define the Greeting component
+        function Greeting({ people }) {
+            return (
+                <div>
+                    <h3>قائمة الأشخاص:</h3>
+                    {people.map((person, index) => (
+                        <div key={index}>
+                            مرحباً {person.name}، عمرك {person.age} سنة.
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+
+        // Define the App component
+        function App() {
+            const peopleList = [
+                { name: "أحمد", age: 25 },
+                { name: "سارة", age: 30 },
+                { name: "محمد", age: 35 },
+                { name: "نور", age: 28 }
+            ];
+
+            return <Greeting people={peopleList} />;
+        }
+
+        // Render the App component to the DOM
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

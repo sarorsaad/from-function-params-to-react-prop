@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Props & State : Create Dynamic-19 UIs Part 1 | مقدمة عن Props و State في React</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 2;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            color: #222;
+            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+        .transcript {
+            white-space: pre-line;
+            text-align: right;
+            font-size: 20px;
+            padding: 30px;
+            line-height: 2.2;
+            color: #333;
+            letter-spacing: 0.3px;
+        }
+        .video-controls {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            font-size: 18px;
+            border: 1px solid #eee;
+        }
+        .timestamp {
+            color: #555;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+        button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title"> 20-What Are Props in React? Part 1 |</h1>
+        
+      
+
+        <div class="transcript">
+            20-What Are Props in React? Part 1 | شرح Props في React
+           
+            السلام عليكم، بسم الله، اللهم صلي وسلم ودد وبرك على سيدنا محمد وعلى آله وأصحابه أجمع طيب، المرة اللي فاتت، احنا عملنا مشروع بسيط خالص، هو عبارة عن بيتج البيتج دي دي متكونة من ثلاثة مشروعات، كل مشروع بالداتة الخاصة بيه فحققنا مبدأ السبرايشن عن طريق ان احنا قريتنا لكل مشروع الكمبوننت الخاص بيه وده كان اول مبدأ من مبادئ الكمبوننت ان انا بحقق مبدأ السبرايشن ان انا يكون كل سيكشن في البروجيكت بتاعي منفصل، موجود في مكان لوحدي طيب، المبدأ التاني اللي احنا محتاجين نحققه هو مبدأ الريوزابيليتي ايه هو مبدأ الريوزابيليتي؟ احنا كنا قلنا ان المفروض مايبقاش عندي ثلاثة كمبوننت لنفس البروجيكت بتاعي، طيب، وقلنا ان في حل امثل الحل الامثل ايه؟ ان انا اخلي فايل واحد ليه البروجيكت والفايل دي ده ياخد الداتا بشكل دايناميك التايتل والديسكريبشن والتكنولوجيز بحيث على حسب الداتا اللي دخلله، ياخد الداتا دي دي ويحطها في الستركشن عنده سواء كانت تايتل، سواء كانت ديسكريبشن، سواء كانت التكنولوجيز اللي هي جاية له بشكل دايناميك وبناء عليها يظهر لي الـ UI اللي انا عايزه يعني ايه؟ يعني بدل الثلاثة فايلات دولة يعني انا عامل لكل كمبوننت الفايل المستقل بيه لا، انا عايز اخلي بدل الثلاثة فايلات دي دي فايل واحد واسميه مثلاً project الفايل دي ده ببساطة شديدة هو dynamic file بياخد input، بياخد data، وبيطلعلي الoutput على حسب الداتا اللي انا دفتها له فبالتالي هيعمللي توفير بدل ما يكون عندي مئة project اعمله مئة file هيبقى فيل واحد بياخد الداتا بشكل دايناميك وبيطلعلي الـ UI اذا اللي انا محتاجه هنا ان اولاً الاقي طريقة اقدر اباصي بيها الداتا اقدر اباصي الداتا ليه؟ الكمبوننت زي الtitle زي الdescription زي التكنولوجيس ومن خلال الداتا دي دي الكمبوننت ياخدها ويظهرلي الـ UI بتاعي تمام؟ وده اللي بتحققه مبدأ ال-props او ال-properties لو انت شايف الموضوع صعب فكر فيه كفانكشن بسيطة خالص الفانكشن كان مبدأ ال-parameters كان عبارة عن ايه؟ كان عبارة عن ان انا ببساطة شديدة بعمل فانكشن لو مثلاً فانكشن بتجمعلي رقمين فببساطة شديدة بدخل لها ال-input وبيطلعلي ال-output بدل مثلاً ماعمل فانكشن بتجمع 5 و 6 ما بتعملش حاجة تاني غير ان هي بتجمع 5 و 6 فدي اسمها static function وبعد كده لو عندي 8 و 4 اروح اعمله فانكشن جديدة للـ 8 و 4 بس لا المبدأ ده غلط مش بيحقق ال-reliability في الفانكشن تب ايه اللي بيحقق ال-reliability في الفانكشن؟ بتطلعلي ال-output نفس النظام انا عايز اباصي dynamic data للـ project بتاعي وبناءً عليه بيطلعلي ال-output اللي انا عايزه فوفر في عدد الفايلات هنا بدل 3 فايلات لكل project الفايل بتاعه لأ يبقى عندي project واحد dynamic بياخد ال-data من ال-app اللي هو ال-app بديله ال-data هنا وهي بيطلعلي ال-output اللي انا عايزه يا رب يكون الموضوع تم استيعابه وبإذن الله مع الامثلة هنقدر نستوعب اكثر واكثر طيب ايه اللي انا عايز اعمله؟ اللي انا عايز اعمله اني ببساطة شديدة جدا عايز اعمل refactor لل-code ديلا بحيث اني بدل ما يكون عندي 3 فايلات يكون عندي فايل واحد طيب هنمسح الفايل رقم 2 اختار اي فايل هنمسح مثلا الفايل ديلا تمام وهنمسح مثلا الفايل ديلا اهو دليل بالشكل دا كده احنا عايزين يبقى عندنا فايل واحد صح كده؟ اه صح طيب نسمي ما سمي مثلا الفايل ديلا ال-project section ماشي؟ طيب ونروح نستدعي ال-project section هنا اه دي ال-project section عشان مش مغيرتش اسم الفلاس خليه مثلا هنا ال-project section بشكل ده كده ماشي نعمل save وبعد كده نستدعي ال-project section هنا وهنا وهنا ونعمله import عشان تعمل auto import اعلم ال-component بتاعك ودوس control و ال-white space هيلاقيه بديك ال-suggestion اللي هو ال-auto import دوس عليه هيبتدي يعمله ك-import ليه ال-project section بشكل ده كده ونمسح بقى ال-import دي مش محتاجينها خلاص كده ما اصبح عندي نفس ال-project بتاعنا فإذن هيطبعلي في الثلاثة سكاشن نفس ال-output دي ده صح؟ اه صح واحنا مش عايزين كده احنا عايزينه يطبع dynamic data تعالى كده اعمل run لل-server هذي ال-server بتاعنا تمام؟ طيب هتلاقي اني في ال-server طابع نفس الثلاثة سكاشن هذي ال-output الاولاني اللي هو بتاع ال-project section دي ده وده نفس ال-component لسه ما بسطلوش static data ولسه ما خلطلوش dynamic فطبعلي نفس ال-output طيب تعالى نخلي ال-project بتاعنا dynamic اولا في ال-project section الاولاني هتيجي كده بعد اسم ال-component بتنزل سطر بعد اسم ال-component وقبل العلامة بتاع نهاية ال-component لان هنا اللي هنبتدي passing ال-params اللي هي بين قوسين اسمها ال-props اللي هي اسمها ال-properties سماة ال-section بتاعها يعني ايه سماة ال-section؟ يعني ال-dynamic data بتاع ال-section دي ده احنا قلنا كان عندنا ال-title تكتب اسم ال-variable بتاعك اللي هو title وبعد كده علامة ال-assignment لو هو string تفتح double quotation وبعد كده تكتب ال-string بتاعك اللي هو مثلا ايه admin خلاص admin-dashboard مثلا يعني اذا انا عملت ايه انا ال-data-variable البساطة جاي زي الفنكشون بالظبط بديها parameter اسم الفنكشون بعد كده بيساوي كذا فبديله الفرامتر بتاعه وبعد كده اسمها ال-props ازاي اخلي ال-component بتاعي dynamic على طريق ال-props ال-props يعني ايه يعني بديله ال-data الخاصة بيه فده اول project بعد كده ال-description اهو هسمي ال-variable سمي زي ما تسمين انا مثلا سميته disk اختصار ل-description طيب بعد كده ال-technologies خلاص اهو اختصرتها html css javascript البساطة شديدة جدا يبقى ازان انا ال-data ال-parameters او ال-props ال-properties بتاعه وتعالى نروح ل ال-project-section المفروض دي ده اخلي ايه اخلي dynamic صح طيب بخلي dynamic ازاي عن طريق انا بفتح كل precess واكتب كلمة this.props امام ضد ال-variable اللي انا مسميه هنا هنا مثلا اول variable اسمه ايه اسمه title ايبا هنا هيبقى اسمه title خلاص this.props عشان انت اكسس ال-properties بتاعت ال-project-section انت دلوقتي عملت ايه انت دلوقتي عندك ال-project-section تعالى كده نعملها بالورقة ونلهم عشان نفهم دلوقتي عندك ال-project-section اللي هو ال-component دي ده هو عبارة عن class صح طيب ال-component دي ده هو by default عنده حاجة اسمها ال-properties مكان كده اسمه ال-props خلاص مكان اسمه ال-props تمام تمام ده by default بيبقى فاضي لان انت ما بتديلهش اي قيمة اول لما بتدي قيمة فياخد القيمة دي دي ويخزينها جواها تمام فيخزينها جواها طيب يبقى اذا دلوقتي القيمة دي دي تسجلت في ال-project-section في ال-project-section تمام طيب يبقى اذا دلوقتي القيمة دي اسمه ال-project-section الجواه جواه كده مكان اسمه ال-props ال-props دي ده هو المكان اللي انت لو حطيت فيه ال-data هيخزينها لك هنا خلاص طيب انا حطيت فيه ال-data اللي هو ال-title وال-description وال-technologies تمام تعالى نروح ل ال-project-section دلوقتي دلوقتي دلوقتي دلوقتي دلوقتي دلوقتي طيب طيب دلوقتي ايه اللي موجود عندي موجودة عندي ال-title موجودة عندي ال-description موجودة عندي التكنولوجيا في المستخدمة لان انا بصيتها هنا محتاج بقى احطها هنا محتاج احطها هنا فانا عايز اخد ال-title يبقى انا علشان اكسس ال-project نفسه بكتب كلمة this خلاص ده بقى OOP يا جماعة خلاص لو انت مش فاكر الكلام دي ده ممكن ترجع بقى عامل بليبلت لسة منفصلة ده يبقى مش مناسب سنة زيرو عامل بليبلت لسة منفصلة لل-OOP ممكن تشوف الكلام دي ده فبكتب كلمة this عشان اقدر اكسس ال-class طيب بعد كده dot دي ال-access operator dot dot يعني ايه يعني دخلني جو الجزئة دي this dot معناها دخلني جو ال-class فانا كده دخلت جو ال-class هنا بقت واقف هنا طيب عايزت اكسس ايه بعديها ال-props ماشي اذا انا دخلت جو ال-props dot عشان تخش جو طيب دخلت جو وقفتي هنا حضرتك عايزت اكسس ايه ال-type فتكتب ال-type تمام يبقى this عشان اكسس ال-class اللي هو من برا كده انا بقت واقف جو ال-class بعد كده ال-props انا بقت واقف جو ال-props بعد كده ال-title انا كده بقت واقف جو ال-title يعني انا خدت ال-value بتاعة ال-title الحمد لله يبقى انا كده هيظهرلي ال-value بتاعة ال-title اللي هي لي اللي هي admin-dashboard تمام نفس النظام بقى خلاص احنا شرحنا مثال يبقى نفس النظام هيتطبق على كل الامثلة اللي عندي طيب زي ايه مثلا زي ايه زي دلوقتي مثلا انا عايز اخلي ال-description بتاعها بدل ما هو static عايز اخليه dynamic فهعمل كده ازاي عن طريق ان انا همسح ال-static ال-static سطرة ال-static دي ده وهعمل kill-replaces هفتح kill-replaces وقفلها على فكرة لما فتح kill-replaces وقفلها بقوله ان انا عايز اكتب javascript وcode هنا كده معناه ان انا عايز اكتب javascript وcode خلاص بفتح kill-replaces وقفلها لان احنا قلنا gsx ماهو الا file اقدر اكتب جوه html وجavascript فانا لو عايز اكتب javascript في اي مكان بفتح kill-replaces وقفلها وجوه kill-replaces بقوله this عشان اقدر اكسس الproject ضد الprops عشان اقدر اكسس الproperties اللي جوه الproject ضد الdescription او كلمة الdesk تمام تمام لازم تتاكد ان الاسم دي ده هو هو الاسم دي ده اصلا ان ده الاسم اللي انت مسجله هنا desk بيساوي كذا فلازم اكسس الاسم بالشكل الصحيح وندوس enter طيب بعد كده حضرتك هنعمل ايه هنقولله نفتح برضه نفس النظام نقوله this dot الprops dot الtech اصلا كلمة التكنولوجيا اللي موجود هنا css وjavascript ده بساطة شديدة خلص كده يا جماعة طيب تعالى بقى نفتح الجزئية نعمل reload تعالى نسيف هنا ونعمل reload هتلاقي ان هو ظهر لك اول project طيب الثاني project مظهرش ليه لان ببساطة انا لسه مبسطلوش اي data فهو empty هو فاضي مفوش اي data خلص تمام فالprops بتاع الثاني project قاضية فمفاش اي data فلما يجي يشوف الtitle هنا مش هيلاقي هيلاقي empty والdescription empty والtechnologies empty فمش هيصغيرلك حاجة طب تعالى نملأ كده مع بعض واحدة واحدة ادي الproject section خلينا مثلا نقول الtitle بيساوي اي ان يكون بقى خلص خليها مثلا يوتيوب مثلا clown اسم الproject بتاعك يوتيوب clown مشي الdescription مثلا اللي بيساوي is this يوتيوب clown والtechnologies مثلا وهي معها react كنوع من انواع الاختلاف يعني react is yes مشي وتعالى نسيب ببساطة شديدة جدا هيروح لما يلاقي السطر دي ده فخلص هيبتدي يعمل override override يعني ايه يعني يحدث الtitle اللي عنده بالقيمة دي دي ويحدث الdescription اللي عنده بالقيمة دي دي ويحدث التكنولوجيات اللي عنده فكده انا بباصي الdynamic data وعلى اساسها بيظهر الcomponent بتاعي فلو جيت ابص هنا هتلاقي هواتي الproject التاني يوتيوب clown الdescription بتاعه اللي احنا كتبينه وهي التكنولوجيات ومفيش اي مشكلة خالص طيب بس اقبلك الرسم دي قدامك عشان انت بقى مستوعب بالعمل مشي في حاجة بسيطة بس هنبقاك عليها ان انت الvariables لازم تكون ملتزم بيها لان انت مفهوش تسميلي مثلا هنا disk وهنا description لان الحقيقة انت معتمد في الaccess على كلمة disk فلما هيجي access هيدور على variable اسمه disk يبقى لازم تلتزم بالdisk في كل الcomponents بتاعه طيب الcomponent التالي تعالى نباصي الprops بتاعته اول حاجة هقوله الtitle هيشي بيساوي وهفتح وهقوله مثلا اللي هي نخليها مثلا تيك توك clown مثلا تيك توك clown بشكل ده كده ونخلي مثلا description زي تيك توك clown ونخلي تكنولوجيا اسمه مثلا HTML CSS وTailwind مثلا وNaked CGS يعني نعشي نتعمل ونسيب على كده تعالى نفتح لابسك هتلاقي الثلاثة project بتاعتك ظهر والحمد لله وعملت enhance ليه الproject بتاعي وقدرت ان انا وفر فعدة الفيلات فنتزود مهما تزود هيتشي تكتب حتى هنا 100 component الاول في الاخر هو project واحد بياخد ال data بشكل dynamic وبيعمل لك render ليه لسه فيه كلام اكتر عن ال props ولكن دي كانت مقدمة بسيطة عن ازاي تكريب dynamic reusable component فلص ازاي تكريب dynamic reusable component والى هنا شكرا والسلام عليكم ورحمة الله وبركاته
+    </div>
+
+    <script>
+        let isPlaying = false;
+        let isMuted = false;
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            document.getElementById('playButton').textContent = isPlaying ? 'Pause' : 'Play';
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteButton').textContent = isMuted ? 'Unmute' : 'Mute';
+        }
+
+        function openSettings() {
+            alert('Settings panel would open here');
+        }
+
+        // Add timestamp to transcript
+        document.addEventListener('DOMContentLoaded', function() {
+            const timestamp = new Date('2025-01-16T00:14:00');
+            document.querySelector('.timestamp').textContent = timestamp.toLocaleString();
+        });
+    </script>
+</body>
+</html>

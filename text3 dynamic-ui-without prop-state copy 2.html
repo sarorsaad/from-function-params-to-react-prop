@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Props & State : Create Dynamic-19 UIs Part 1 | مقدمة عن Props و State في React</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 2;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            color: #222;
+            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+        .transcript {
+            white-space: pre-line;
+            text-align: right;
+            font-size: 20px;
+            padding: 30px;
+            line-height: 2.2;
+            color: #333;
+            letter-spacing: 0.3px;
+        }
+        .video-controls {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            font-size: 18px;
+            border: 1px solid #eee;
+        }
+        .timestamp {
+            color: #555;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+        button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">21-What Are Default Props in React? | شرح Default Props في React بالتفصيل</h1>
+        
+      
+
+        <div class="transcript">
+            21-What Are Default Props in React? | شرح Default Props في React بالتفصيل
+
+السلام عليكم، بسم الله، اللهم صلي وسلم وديدا وبارك على سيدنا محمد وعلى آله وصحابه أجمعين المرة اللي فاتت يا جماعة ده كان آخر شكل ووصلنا له إن إحنا قدرنا نعمل كومبوننت كلاس كومبوننت مستقل، دايناميك وبالتالي مش مضطر إن أنا أعمل زي ما قلت لك ثلاث فايلات لكل بروجيكت الفايل بتاعه، ولو عندي مئة بروجيكت هتضطر أعمل مئة فايل؟ لأ، في طريقة بسيطة خالص إن أنا أعمل الفايل بتاعي بشكل دايناميك إن أنا أبصيله الداتا وبناءً عن الداتا دي دي يظهر لي الـ UI بتاعي، وقلنا الداتا دي دي هي اسمها الـ Props، اختصاراً لكلمة الـ Property، طيب، النهاردة عايزين نتكلم في إيه؟ قبل ما أقول لك عايزين نتكلم في إيه تعالي كده ناخد مثال مع بعض ونشوف إيه اللي إحنا عايزين نعمله تعالي نرن السيرفر، اتأكد إن انت واقف في المسار الصحيح، هكتب npm run dev، تمام، وهدوس هروح على الـ link، ودوس control عشان يجيبلي علامة الـ hover، هدوس على الـ link عشان يفتحلي السيرفر بتاعي أو الموقع اللي بيظهر فيه نتائج الكود بتاعتي، اهو، ثلاثة project هو بساطة شديدة جداً تمام، تمام، إيه اللي أنا عايز أعمله؟ أنا مثلاً عايز أضيف فيه الـ project section بتاعي في كل project section، تعالي كده أجيب لك الـ pointer عشان نفهم في كل project section يعني ده كده السيكشن الأوليني صح؟ وده كده السيكشن الثاني، وده كده السيكشن الثالث أنا في كل project section عايز أضيف حاجة جديدة هي عدد الأيام اللي أنا اشتغلت عليها يعني مثلاً الـ project دي ده خد مني، الـ project دي ده خد مني ثلاث أيام الـ project دي ده مثلاً خد مني خمس أيام، فأنا عايز أظهر ديدي في الـ UI بتاعي تعالي كده نشوف هنعملها إزاي؟ ببساطة شديدة هفتح visual studio code أنا عايز أعمل إيه؟ عايز أضيف حاجة جديدة في الـ UI بتاعي خلاص، إبنا هضيف property جديدة، إيه هي الـ property؟ اللي اسمها مثلاً number of days، مثلاً يعني أدي property جديدة، وحبصيله رقم طيب عشان أقدر أبصي رقم لازم أفتح الـ curly braces و أفله و أكتب الرقم بتاعي وليكن مثلاً أنا اشتغل عشر أيام فهبصيله الرقم اللي اسمه عشر جوه الـ curly braces، تمام؟ تمام أصبح الـ project section بتاعي بيستقبل أربع حاجات الـ title, description, technology، وآخراً عدد الأيام تعالي كده نفتح الـ project section ونجيبهم جنب بعض علشان برضه الدنيا تبقى أوضحة ماشي؟ تمام أنا دلوقتي ببعطله الـ title، خلاص هياخد الـ title من هنا وهيزهره لك هنا عادي خلاص، وdescription أهواد والtechnologies أهواد، بقى إن أنا إيه؟ بقى إن أنا أحط number of days خلاص ببساطة شديدة جداً هنزل تحت بكتب HTML عادي خلاص، تمام؟ طيب عشان أكتب div بالclass name بتاعه بدل ما عود أكتب الـ div وبعد كده class name فيه اختصار إن أنت تدوس على علامة الـ dot ودوس enter تمام؟ تمام بعد كده الـ UI اللي أنا عايز أزهره مثلاً number of days عدد الأيام، طيب وهبتدي أكتب المتغير بتاعه هفتح الـ curly braces و أقفله عشان أقدر أكتب المتغير بتاعه هقوله this.props ماشي؟ dot الـ ايه؟ اسم الـ property دي اللي هو number of days تمام، اهوا ببساطة شديدة جداً وهبتدي برضه أباصي لـ project section الثاني الـ property اللي يسميها number of days ولكن هنا مثلاً هيكون أنا اشتغلت عليه لمدة 5 أيام و الـ project الثالث هنا مثلاً أنا اشتغلت عليه 4 أيام خلاص كده يا جماعة؟ طيب وتعالى نشوف اللي هيحصل فيه الـ UI بتاعه اتاكد إن احنا عملنا save اهوا ببساطة شديدة ظهر لك عنصر جديد في كل السكاشن هو عدد الأيام اللي أنا اشتغلت عليها في الـ project بتاعه طيب تعالى بس كده نفصل بين كل project والثاني عشان ما يبقى شديدين يدخلوا في بعضياً إيه اللي أنا عايز أعمله؟ إيه اللي أنا عايز أعمله إن أنا أحط مثلاً خط كده تحت كل project والثاني طيب تيجي نعملها هنا؟ تعالى نعملها هنا كده نقول له مثلاً بعد ما يخلص السكشان دي ده اللي هو بتاع الـ project section أحط لي خط اللي هو الـ horizontal line تمام تمام هيظهرلك error الـ error ده بيقول إيه؟ الـ error ده ببساطة شديدة يا جماعة الـ error دي ده لأن من قواعد كتابة الـ component إنه هو لازم يرجع element واحد إنت كده برجع two element أدي الـ element الأولاني و أدي الـ element الثاني تمام تمام لأ لازم يكون في element واحد جوه كل العناصر خلاص فلازم كل العناصر بتاعتك two تبقى موجودة جوه container أو wrapper خلاص جوه element واحد لأن ده ضد قواعد ضد قواعد gsx تمام ضد قواعد gsx أو بيقولك gsx expressions must have one parent element يعني لازم لازم جوه return يكون فيه parent انت هنا مفيش parent انت بترجع two element فببساطة شديدة أخد دولة كده ctrl x وبعد كده هحط الparent بتاعي الparent بقى عايز تخليه div عايز تخليه section عايز تخليه زي ما تخليه مهم إنه هو يكون element جوه كل العناصر بتاعتك اللي هو إيه اللي هو الsection و الhr تمام تمام جوه section و جوه hr الsection اللي هو فيه معلومة بتاعت project وبعد ما يخلص يحط لي line or horizontal line تحتي كده و دي الup اللي بيحتوي جميع العناصر عشان بيرجع element واحد فقط طيب نفترض مثلاً إن أنا مش عايز أحط الparent كdiv أنا مش عايز الparent يكون div عايز يكون empty يكون fragment ما يكونش حاجة خالص أنا عايز أرجع الsection و الhr مش عايز div container و في نفس الوقت إجباري عليك إن العناصر تكون جوه container في الحالة دي دي فيه حاجة اسمها الفragment element ببساطة شديدة إنه هو يكون ها هو ما ترجعش حاجة خالص كده أنا راضيت الطرفين راضيت قواعد الreact إن أنا عملت rab للelement بتاعتي جوه الup و إنت كdeveloper لو إنت الui بتاعتك معتمد على إن الcomponent يرجع section وتحتي hr مش لازم يكون جوه container عشان لو رجعته جوه container هيبوزلك الui أو هيبوزل قواعد CSS اللي إنت كتبقى خلاص رجعه فاضي فأنا كده راضيت الreact إن أنا رجعت الelement بتاعتي جوه الparent element و راضيت الdeveloper لو هو القواعد بتاعتي CSS لازم يكون فيه section تحتي hr و مش عايز يكون فيه container اسمه div مثلاً أو أي حاجة خلاص أنا رجعته فاضي فده اسمه الfragment element بتكتب كده أو ممكن أقوله react.fragment هي هي دي مفيش أي اختلاف خلاص ولكن الأفضل إن أنا أسيبها فاضية كده و تمام طيب فيش مشكلة خالص و عملنا الupdate بتاعنا تعالى كده نفتح ui أهو حطلي بعد ما خلصت section حطلي hr تحتين وبعد كده عدد الأيام اللي أنا اشتغلت عليها على المشروع طيب تعالى بقى نشوف ايه هو الpower of reusability دلوقتي أنا عملت بروجيكت جديد البروجيكت الجديدة مثلاً اسمه فيسبوك لون و عايز أضيفه في البروفايل بتاعي خلاص أهو هيك هفضل ctrl c ctrl v و مجرد إن أنا يا جماعة هغير البيانات عارف لولا بروبس كنت عملت ايه كان لازم أروح أعمل file الفايل ده ساميه مثلاً البروجيكت رقم 5 واكتب فيه البيانات بتاعه إنما هنا أنا بس خدت ctrl c ctrl v وهبصي البيانات بشكل دايناميك فأنا مثلاً بدل تيك توك لون هخليه مثلاً اهو فقادي الفيسبوك لون هغير الdescription ببساطه سديده وهخليه فيسبوك لون this is facebook loon التكنولوجيا عايز تسيبها زي ما هيها عايز تضيف اي حاجة تانية مثلاً مونغو database اياً يكن عدد الايام أنا مش هبصي عدد الايام عشان اعرفك ايه هو موضوع النهارده أنا مش هبصي الproperty ديدي وتعالى نشوف ايه هو اللي هيظهر في الui صح أنا بصيت التايتل والdescription وتكنولوجيا فهيفتح هنا الكمبوننت بتاعي تمام هيلقي التايتل اهو فهيروح كتبلك فيسبوك لون بعد كده هيلقي الdescription اهو فهيروح كتبلك this is facebook loan طيب هيلقي التكنولوجيا اهيل هييجي عند number of days وهيلقي الproperty ديدي مش موجودة انا ما بصيتها عشان مش موجودة فمش هيظهرلك حاجة تعالى كده نشوف اهو facebook loan وده الوصف وده number of days اللي هي الجملة الايستاتيك ولكن مفيش هنا حاجة طيب ده مش صحيح ليه مش صحيح لان انت كdeveloper لازم تكون مهندل من ضمن الcases ان لو ال انت ماعملتش pass ليه الnumber of days يكون فيه default value يكون فيه default value صح كده يعني اقصد ايه يعني اقصد اننا لو ماعملتش pass لعدد الايام هنا المنظر هنا مش حل يعني هنا كمان لو فيه عمليات حسابية بتترطب على ال number of days دي دي مثلاً زي ما انت تاخد العدد دي ده وتضربه في 5 او تقسمه او اياً يكون من الprocess اللي بتحصل على ال الرقم دي ده ممكن يعملك unexpected errors ليه لان انت هتبتدي تعمل process على حاجة هي empty فانت لازم تكون مهندل الcases دي صح او لما غلطان اه صح طيب اعمل مهندل الcases دي ازاي عالطريق ان انا اخلي فيه default value اخلي فيه قيمة افتراضية للnumber of days بحيث ان انت لو ماعملتليش pass لها خلاص انا استخدم القيمة الافتراضية او القيمة الاحتياطية فاهمين اصل يا جماعة طيب تعالى نشوف ازاي نعمل default value انا عايز اعمل default value بحيث ان انت لو ماعملتش pass للnumber of days عدد الايام بتاع الproject بتاعه انا اظهرلك by default انه هو 0 طيب طبب بساطة شديدة كده هاجي هنا فوق الrender method وهكتب هنا static طيب default props و يساوي وهفتح الcurly braces و اقفلهم طيب static ده بقى ماشي static dq ورد معناها ان ال default props دي دي هي خاصية خاصة بال ايه خاصة بالclass نفسه مش خاصة بال instance بتاعته يعني ايه الكلام دي ده طيب دلوقتي ادي الclass بتاعك اللي هو اسمه ايه اللي هو اسمه project section امام الclass دي ده فيه حاجتين يا جماعة فيه حاجة اسمها انت لما بتعمل extend للcomponent الcomponent دي ده لما بتعمل inherit او extend من الcomponent class فهو بيديك by default كل الmethods والproperties اللي انت محتاجها من ضمنها الrender method عشان تقدر تستردمها او ترجع الui ومن ضمنها two property مكانين كده by default اول مكان هو الdefault props هو متسمى بتاسمع دي اهو اسمه الdefault props تمام تمام وتاني مكان اللي هو الprops اللي هو الprops تمام تمام انت حضرتك لما بتباصل ال data بالشكل دي دي ال data دي دي بتتخزن فين بتتخزن فيه والprops دي دي مش static يعني ايه يعني كل project section كل instance ليه ال data الخاصة بيه يعني data دي دي بتتغير مع كل نسخة من ال class دي كده مثلا دي كده مثلا النسخة الاولانية فليها ال data الخاصة بيها ودي كده النسخة التانية من ال class ليها data مختلفة فتتغير معاها طيب الstatic بقى عكسي كده الstatic معناه ان القيمة دي دي خاصة بالclass نفسه مش خاصة بال ايه مش خاصة او النسخ اللي هتطلع من ال class دي ده يعني القيمة دي سابتة مع اي نسخة يعني انت لما مثلا حضرتك تحط default props وتكتبلي ال number of days لازم بس الاسماء تكون متوافقة نفس الاسم هنا هو نفس الاسم هنا هو نفس الاسم هنا تمام وتقوللي مثلا zero تمام عدد الايام هو 0 ده معناه ايه معناه ان ال class اللي اسمه project section بقى عنده property خاصة بيه هيستخدمها ال property دي دي خلينا كده اكتبها ال property دي دي اسمها ال number of days تمام و قيمتها ب 0 تمام طيب ال property دي دي هيستخدمها مع كل نسخ ال project section لو لو ما لو ما ايش قيمة لل number of days تمام تمام فييجي مثلا ييجي مثلا هنا عند ال project section دي ده و عند ال project section دي ده يلاقي اول واحد ال number of days ليها قيمة فخلاص مش هستخدم ال default value انا هستخدم القيمة اللي جاي يالي في ال property بتاعتي ولكن يلاقي النسخة التانية مفهاش ال number of days خلاص فلما يلاقي ان ال property مش موجودة هنا يروح مستخدم ال default value اللي موجودة هنا تمام تمام طيب لو كان عندي مثلا نسخة تانية منه و برضو مش عامل لها boss مش عامل boss لل number of days برضو نفس الكلام هيستخدم نفس القيمة اللي هنا مع النسخة التانية و ده معنى كلمة static مع كل نسخ ال class مع كل النسخ اللي هتطلع من ال class دي ده لو حضرتك ما ديتش قيمة لل number of days خلاص كده جماعة اتمنى يا رب الشرح يكون مبسط و اصلك بصورة سليمة طيب تعالي نمسح الكلام دي ده ونشوف اللي انا متوقعه اللي انا متوقعه ببساطة شديدة خلينا نمسح النسخة دي دي اللي انا متوقعه ان في اول project هيلاقي ال number of days فخلاص مش هيستخدم هيستخدم ال value اللي هي مت مرة راله اللي هو واخدها اصلا من ال props طيب هيلاقي برضه في النسخة التانية فخلاص تمام النسخة التالتة برضه خلاص تمام النسخة الرابعة مفيهاش ال number of days فهيضطر يروح يستخدم ال default value لان حضرتك هنا انت معرفله default value السطر ده بالبلادي كده لو انت مش فاهم لحد الوقت السطر ده بالبلادي كده و بكل بساطة معناه ما بسطش ال number of days فيه ال instance او فيه اي نسخة من نسخة ال class استخدم القيمة دي تمام تعالى كده هنسيب هنا ونعمل save برضه هنا ونشوف اهو نعمل reload اللي حصل جاب لك عدد عدد الايام في اول project و التاني project و تالت project رابع project ل ايه فاضي
+        </div>
+
+    <script>
+        let isPlaying = false;
+        let isMuted = false;
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            document.getElementById('playButton').textContent = isPlaying ? 'Pause' : 'Play';
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteButton').textContent = isMuted ? 'Unmute' : 'Mute';
+        }
+
+        function openSettings() {
+            alert('Settings panel would open here');
+        }
+
+        // Add timestamp to transcript
+        document.addEventListener('DOMContentLoaded', function() {
+            const timestamp = new Date('2025-01-16T00:14:00');
+            document.querySelector('.timestamp').textContent = timestamp.toLocaleString();
+        });
+    </script>
+</body>
+</html>

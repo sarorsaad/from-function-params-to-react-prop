@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>درس Props في React | تعلم إعادة استخدام المكونات</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            direction: rtl;
+            color: #333;
+            font-size: 18px;
+        }
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 300px;
+            background-color: #2c3e50;
+            padding: 20px;
+            position: fixed;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+        }
+        .content {
+            flex: 1;
+            margin-right: 300px;
+            padding: 40px;
+            background: white;
+        }
+        .nav-link {
+            display: block;
+            color: #ecf0f1;
+            padding: 15px;
+            margin: 5px 0;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            background-color: #34495e;
+        }
+        .nav-link.active {
+            background-color: #3498db;
+            color: white;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .code-example {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            direction: ltr;
+            overflow-x: auto;
+        }
+        .code-example pre {
+            margin: 0;
+            font-family: 'Consolas', monospace;
+            font-size: 20px;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+        .note {
+            background-color: #e1f5fe;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 50px;
+            font-size: 28px;
+        }
+        h3 {
+            font-size: 24px;
+            color: #2c3e50;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 20px;
+        }
+        .step {
+            margin-bottom: 50px;
+        }
+        ul li {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <div class="sidebar">
+            <a class="nav-link active" onclick="showSection('section1')">المرحلة الأولى: المكونات الثابتة</a>
+            <a class="nav-link" onclick="showSection('section2')">المرحلة الثانية: استخدام Props</a>
+            <a class="nav-link" onclick="showSection('section3')">المرحلة الثالثة: Props مع المصفوفات</a>
+        </div>
+        
+        <div class="content">
+            <h1>درس Props في React: تحويل المكونات الثابتة إلى مكونات قابلة لإعادة الاستخدام</h1>
+
+            <div id="section1" class="section active">
+                <h2>المرحلة الأولى: المكونات الثابتة (بدون Props)</h2>
+                <p>في هذه المرحلة، نقوم بإنشاء مكون منفصل لكل مشروع. هذه الطريقة غير فعالة لأنها:</p>
+                <ul>
+                    <li>تحتاج إلى تكرار الكود لكل مشروع جديد</li>
+                    <li>تصعب الصيانة عند الحاجة لتغيير هيكل المكون</li>
+                    <li>تخالف مبدأ DRY (Don't Repeat Yourself)</li>
+                </ul>
+                <div class="code-example">
+                    <pre>
+// مكونات المشاريع المنفصلة - الطريقة غير المثالية
+function Project1() {
+    return (
+        &lt;div className="project"&gt;
+            &lt;h1&gt;Admin Dashboard&lt;/h1&gt;
+            &lt;p&gt;لوحة تحكم إدارية...&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+function Project2() {
+    return (
+        &lt;div className="project"&gt;
+            &lt;h1&gt;E-commerce Platform&lt;/h1&gt;
+            &lt;p&gt;منصة تجارة إلكترونية...&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+function Project3() {
+    return (
+        &lt;div className="project"&gt;
+            &lt;h1&gt;Social Media App&lt;/h1&gt;
+            &lt;p&gt;تطبيق تواصل اجتماعي...&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// المكون الرئيسي للتطبيق
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;h1 className="page-title"&gt;مشاريعي&lt;/h1&gt;
+            &lt;Project1 /&gt;
+            &lt;Project2 /&gt;
+            &lt;Project3 /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// تحميل التطبيق
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+</pre>
+                </div>
+                <div class="note">
+                    <strong>المشكلة في هذا الكود:</strong>
+                    <ul>
+                        <li>تكرار نفس الهيكل البرمجي ثلاث مرات</li>
+                        <li>صعوبة الصيانة عند الحاجة لتغيير شكل المكونات</li>
+                        <li>الحاجة لإنشاء مكون جديد لكل مشروع جديد</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="section2" class="section">
+                <h2>المرحلة الثانية: استخدام Props</h2>
+                <p>بدلاً من إنشاء مكون منفصل لكل مشروع، يمكننا إنشاء مكون واحد يستقبل البيانات كـ props:</p>
+                
+                <div class="code-example">
+                    <pre>
+// مكون المشروع القابل لإعادة الاستخدام
+function Project(props) {
+    return (
+        &lt;div className="project"&gt;
+            &lt;h1&gt;{props.title}&lt;/h1&gt;
+            &lt;p&gt;{props.description}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// المكون الرئيسي للتطبيق
+function App() {
+    // تخزين بيانات المشاريع في مصفوفة
+    const projects = [
+        {
+            title: "Admin Dashboard",
+            description: "لوحة تحكم إدارية متكاملة تتيح للمستخدم إدارة المحتوى والمستخدمين"
+        },
+        {
+            title: "E-commerce Platform",
+            description: "منصة تجارة إلكترونية متكاملة تتيح للتجار عرض منتجاتهم"
+        },
+        {
+            title: "Social Media App",
+            description: "تطبيق تواصل اجتماعي يتيح للمستخدمين التفاعل ومشاركة المحتوى"
+        }
+    ];
+
+    return (
+        &lt;div&gt;
+            &lt;h1 className="page-title"&gt;مشاريعي&lt;/h1&gt;
+            {/* استخدام map لعرض جميع المشاريع */}
+            {projects.map((project, index) => (
+                &lt;Project
+                    key={index}
+                    title={project.title}
+                    description={project.description}
+                /&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+
+// تحميل التطبيق
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(&lt;App /&gt;);
+</pre>
+                </div>
+
+                <div class="note">
+                    <strong>مميزات هذا الحل:</strong>
+                    <ul>
+                        <li>مكون واحد قابل لإعادة الاستخدام</li>
+                        <li>سهولة إضافة مشاريع جديدة عن طريق إضافة بيانات للمصفوفة فقط</li>
+                        <li>سهولة تعديل شكل جميع المشاريع من مكان واحد</li>
+                        <li>كود أنظف وأسهل في الصيانة</li>
+                    </ul>
+                </div>
+
+                <div class="note">
+                    <h3>كيف يعمل Props؟</h3>
+                    <ul>
+                        <li>Props هي طريقة لتمرير البيانات من المكون الأب إلى المكون الابن</li>
+                        <li>يمكن تمرير أي نوع من البيانات: نصوص، أرقام، مصفوفات، كائنات</li>
+                        <li>المكون الابن يستقبل البيانات كمعامل (parameter) في الدالة</li>
+                        <li>البيانات التي يتم تمريرها عبر Props هي للقراءة فقط (read-only)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="section3" class="section">
+                <h2>المرحلة الثالثة: استخدام Props مع المصفوفات</h2>
+                <p>نقوم بتخزين بيانات المشاريع في مصفوفة واستخدام map للتكرار:</p>
+                <div class="code-example">
+                    <pre>
+function App() {
+    const projects = [
+        {
+            title: "لوحة التحكم",
+            description: "لوحة تحكم إدارية..."
+        },
+        {
+            title: "متجر إلكتروني",
+            description: "منصة تجارة إلكترونية..."
+        }
+    ];
+
+    return (
+        &lt;div&gt;
+            {projects.map((project, index) => (
+                &lt;Project
+                    key={index}
+                    title={project.title}
+                    description={project.description}
+                /&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}
+</pre>
+                </div>
+            </div>
+
+            <div class="note">
+                <h3>فوائد استخدام Props:</h3>
+                <ul>
+                    <li>إعادة استخدام المكونات بسهولة</li>
+                    <li>تقليل تكرار الكود</li>
+                    <li>سهولة الصيانة والتعديل</li>
+                    <li>إمكانية إضافة مشاريع جديدة بدون تكرار الكود</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked link
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Props & State : Create Dynamic-19 UIs Part 1 | مقدمة عن Props و State في React</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 2;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            color: #222;
+            margin-bottom: 40px;
+            font-size: 28px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+        .transcript {
+            white-space: pre-line;
+            text-align: right;
+            font-size: 20px;
+            padding: 30px;
+            line-height: 2.2;
+            color: #333;
+            letter-spacing: 0.3px;
+        }
+        .video-controls {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            font-size: 18px;
+            border: 1px solid #eee;
+        }
+        .timestamp {
+            color: #555;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 0 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+        button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Introduction to Props & State : Create Dynamic-19 UIs Part 1 | مقدمة عن Props و State في React</h1>
+        
+      
+
+        <div class="transcript">
+            
+السلام عليكم، بسم الله، اللهم صلي وسلم وعز وبرك على سيدنا محمد وعلى آله وصحبه أجمعين. النهاردة يا جماعة، هنبدأ في topic مرتبط بارتباط أساسي بالcomponents وهو إيه هو ال-states وإيه هي ال-props اللي هي اختصاراً لكلمة properties. طيب، سيبك من ال-topic، سيبك من ال-concept خالص وتعال نفكر بشكل بسيط خالص.
+أنا معايا use case وعلى أساسها هنبتدي نعرف إيه فايدة ال-state وإيه فايدة ال-props. طيب، نفترض بمثلاً انت عندك ال-page أو ال-website بتاعك. ال-website دي ده انت عايز ببساطة شديدة 3 عناصر تحت بعض.
+كل عنصر فيهم بيمثل ال-project بتاعك. يعني مثلاً حضرتك بتصمم ال-portfolio الخاص بيك. فالصفحة دي دي هي الخاصة بالمشاريع بتاعتك.
+فطبيعي ان انت تكون عامل كل سيكشن لل-project الخاص بيك. طيب، وفي كل سيكشن هتكتب اسم ال-project، الوصف بتاع ال-project وال-technologies اللي انت استخدمتها. ده ال-project الاولاني اللي هو admin-dashboard وهدي description بتاعه وهدي technologies اللي حضرتك استخدمتها فيه.
+وده ال-project التاني هنجيبه تحتيه بالضبط هنعمل div أو container وهنكتب فيه ال-title, description وال-technology. بعد كده تالت حاجة برضو نفس النظر. ال-project التالي اللي هو ال-title وال-description وال-technology.
+تعالوا ببساطة شديدة بدون استخدام ال-states وال-props نعمل الموضوع دي ده بيدينا. انا ببساطة شديدة التفكير المنطقي بيقول ان انا قدامي 3 component. ال-component الاولاني هسمي project 1 وهدي له ال-structure الخاص به.
+h1 بعد كده paragraph بعد كده 3 span. طيب وبعد كده هعمل file ل-component 2 هسمي project 2. وهعمل component 3 هسمي project 3. طيب تعالوا ببساطة شديدة نروح للتطبيق العاملي ونفتح ال-visual studio code ونشوف ببساطة شديدة قبل ما نعمل refactor ونستخدم ال-concept بتاع ال-states وال-props ازاي هنعمل صفحة بسيطة جواها 3 section. اول سيكشن لل-project 1 ثاني سيكشن لل-project 2 ثالث سيكشن لل-project 3. هدي ال-visual studio code بتاعي هنلاحظ ان انا في الترمينال مش واقف في المسار الصحيح.
+المسار الصحيح ان انا مفروض ابقى جوا folder ال-component example وجوا folder ال-myapp اللي جوا الفولدر ال-up. عشان ده الفولدر اللي جوا ال-project بتاعك. لو انت واقف في فولدر غلط وجيت تحاول ترن لسيرفر بتاعك مش هيرن وهيجيبلك error.
+عشان كده بنبه على المسار دي ده مرة واثنين وثلاثة. طيب انا هروح ليه الفولدر اللي اسمه component example. بعد كده هروح ليه جوا اللي هو الفولدر اللي اسمه myapp.
+وهدوس enter. وبعد كده هبتدي السيرفر بتاعي او هرن السيرفر بتاعي او هرن المكان اللي هيظهر فيه الموقع عن طريق ان انا هدوس npm. طيب بعد كده هروح على ال-link وهدوس control.
+هيظهر لي علامة ال-hover هدوس بالماوس على ال-link عشان يفتحلي السيرفر بتاعي. طيب بعد كده بعد ما فتحنا السيرفر طبعا ال-app انا مسحت كل الحاجات اللي فيه ولكن انا رفعت اصلا الاكواد على ال-github. فانت تروح تجيب الكوميت ومن خلال الكوميت هتشوف كل الاكواد اللي كتبناها في الدرس السابق.
+طيب تعالي نبتدي بقى دي ال-app فاضي خالص فالسيرفر مش هيكون في اي حاجة تترندر لان انا ما عنديش دلوقتي اي حاجة. طيب تعالي قبل ما نكتب الكود لازم نفكر بالمنطق كده وبالورقة والقلم. دلوقتي حضرتك محتاج ايه؟ محتاج ان ال-body بتاعك يكون فيه 3 عناصر خلاص 3 عناصر.
+اول عنصر ليه ال-project 1، تاني عنصر ليه ال-project 2، ثالث عنصر ليه ال-project 3. وقلنا ان كل عنصر هنعمله ال-component المنفصل طيب ده كلام جميل. فتعالي نروح هنا جوه source نكريت الفولدر اللي اسمه components. سريعا سريعا وجوه الفولدر هنبتدي نكتب اول component اللي هو project 1. مثلا يعني .js execute.
+هادي project 1 تعالي نشوف ايه اللي احنا محتاجين نكتبه. اول حاجة هنكتب ال-basic structure او ال-basic syntax بتاع ال-class component. احنا كل مرة بقى هنكتب نفس الخطوات المتكررة؟ لا في اختصار هتروح عند ال-extensions.
+في ال-extensions دي دي الاسم بتاعها دي دا. حضرتك هتكتب الاسم دا في ال-search. وهتعمل تثبيت لل-extensions دي ببساطة شديدة.
+ال-extensions دي دي وظيفتها ان هي بتديك اختصارات ل-basic syntax معين فانت مش مضطر ان تكتب من ال-scratch. عشان اقدر اكريب ال-class component هكتب هروح كتب rccreact class component. اول ما هكتب التلات حروف دول ولوس انتر.
+ببساطة شديدة هيكتب لي ال-basic structure بتاع ال-class بتاعي وانا ابتدي ببساطة شديدة. واحنا كنا نقشنا ال-basic structure مفيش اي حاجة جديدة فيه. مجرد ان ال-exported default جابها فوق بدل ما تكتب سطر تحت لقى وجبالك فوق.
+وده مافيش فيه اي مشكلة. ودي نقطة البداية بتاعتنا. طيب تعالى نغير ال-diff دي دا ونخليه semantic element ونخليه section.
+فيش مشكلة فارغ. وال-basic structure بتاع ال-section بتاعنا. احنا كده بنبتدي فيه فاول component اللي هو project 1. عايزين نعمل ال-basic structure بتاعه.
+تعالى بالوراء والقلة. ادي ال-project 1 بتاعنا. كان عبارة عن ايه؟ كان عبارة اول حاجة عن ال-title.
+والتاني حاجة كان عندنا ال-description. اللي هو عنوان المشروع. وال-description الوصفة بتاع المشروع.
+وال-technologies اللي انت استخدمتها في المشروع دي دا. ده كده. يبقى انا كده عندي ثلاثة عناصر ببساطة شديدة.
+هاروح في ال-structure بتاعي وهكتب اول حاجة. بدل بقى ما نقعد نكتب. انا كده كده اصلا كنت اعملهم وما فيش فيهم اي حاجة معقدة.
+فاخدهم copy and paste على طول. اهو ده section. جوه اول حاجة description اللي هو admin dashboard.
+عفوا لل-title اللي هو admin dashboard. بعد كده description. بعد كده ال-div اللي هو يحتوي على ثلاثة span.
+كل span فيها التكنولوجي المستخدم. كده يبقى احنا الحمد لله عملنا ال-basic structure لأول component عندي. طيب هسيب.
+وبعد كده هاروح استدعي ال-component دي ده جوه ال-app. لان ال-app دي ده هو اللي بيقدم باستدعاءه جوه المين. سحوا علينا غلطان.
+تعالى كده احزف لك الحاجات دي دي. شو انت قدر تشوف. تمام.
+ده ال-app. فلما افتح ال-app. المفروض لما افتح الفايل اللي اسمه app.
+وهو اللي هو الفايل دي ده. مفروض ان انا يكون جوه ال-component اللي انا محتاجه استدعيه. هسيب ال-extension بتاعي اللي هو react-class-component.
+بعد كده. عفوا. دوسل اول واحدة.
+هيعمللي ال-basic-structure بتاع react-class-component. تمام. هستدعي جوه ايه؟ محتاجه استدعي جوه.
+ال-project-1. تمام. هو هيعمللي auto-import.
+بشكل ده كده. اوه كده احنا عملنا استدعاة مين؟ ليه ال-project-1؟ يبقى ايذا الاكوايد اللي موجودة في ال-project-1. اللي جوه ال-renderer هيتم الاستدعاءة.
+وببساطة شديدة هيحطها لك هنا. هيحطها لك هنا. ببساطة شديدة.
+نعمل save هنا. ونعمل save هنا. عليش.
+نعدل بس كده. نعمل save. وبعد كده تعالى نفتح السيرفر بتاعنا.
+اهوا. ظهرلك اول component ببساطة شديدة جدا. اللي هو ال-title-description-technologies.
+اللي انت استخدمتها. تمام. تمام.
+طيب. تعالى بس كده ايه؟ نفسل بينهم الدقومة. عشان بس ما يبقاش الشكل مش كويس.
+طيب. بعد كده محتاج ايه؟ محتاج ان انا اعمل project2. نفس الخطوات بالزبط.
+مفيش اي اختلاف خارج. هعمل ال-file اللي اسمه project2. هكتب كده project2.
+تمام. .gsx .gsx بعد كده react-component وضعos enter. ماشي.
+طيب. بعد كده هجيب الاكواد الجهزة. ببساطة شديدة.
+هشيل هنا. هخليه section. section دي ده.
+عبارة عن الtitle الdescription والtechnologies المستخدمة. طيب. بعد كده فضلي اخر حاجة ان انا اروح عملله import.
+تحتي هنا. هعمل استدعاء لل-project2. هكتب كده كلمة project2.
+بالشكل ده كده. ماعملهاش auto import. لل-project2.
+من المزار دي ده. بالشكل ده كده. تمام.
+تمام. وهي تعالى نشوف السيرور هل الدنيا تمام ولا في مشكلة اهم. عرض لك ادي project1.
+ده كده اول component. وده كده تاني component تحتي اهم. تمام.
+تمام. ونبقى نفصل بينهم بكمة بعدين. طيب.
+بعد كده اخيرا هنcarry it. اخر file اللي اسمه project3. معلش.
+.gsx بعد كده react-component. بعد كده اخذ ctrl-c عشان اعمل copy-paste للاكواد بتاعتنا. بشكل ده كده.
+طيب. واخر حاجة هستبقى ايه. هنا.
+مش. هنقوله project3. اهو.
+اكد انه هو معمله import هنا. عشان ما يحصلكش اي مشاكل. طيب.
+ونشوف اهو. ادي project3. انا كده عملت التلات حاجة.
+طيب. الحمد لله مفيش اي مشاكل خالص. وcode مفيش اي حاجة صعبة خالص.
+صح كده. تمام. طيب.
+الطريقة اللي احنا عملناها صحة وكل حاجة. ولكن انت كده قتلت مبدأ reusability. او اعادة استخدام الcomponents.
+مش مهم حاجة. طيب. تعالى نفهم مع بعض وابعد عن الكلام اللي احنا قلناه كل ده.
+وتعالى نشوف مثال بسيط. دلوقتي لو انا عندي function اسمها print name. وظيفتها ان هي بتطبع الاسم.
+تفتكر هل من المنطقي ان انا اعمل function لو انا عندي 3 اسماء اعيز اطبعهم. هاروح اعمل function بتprint الاسم الاولاني. واروح اعمل function جديدة بتprint الاسم التاني.
+وهاروح اعمل function جديدة بتprint الاسم التالي. اصبح انا عندي. ليه.
+الprint name عندي 3 function. اصبح عندي 3 function. كريتت 3 function.
+عشان اطبع ال3 اسماء. فيحين ان انا لو كان عندي 100 اسم كنت كريت 100 function. وده ما بيحققش مبدأ reusability او مبدأ اعادة الاستخدام في الfunction.
+انت حضرتك ماعملش اعادة الاستخدام انت كريتت الكل اسم الfunction بتاعك. فيحين ان انت لو جيت تفكر هتلاقي نفس ال structure ثابت. ولكن اللي بيتغير هو الاسم.
+طيب هل ده افضل. ولا الافضل ان انا اعدل في الكود بتاعك. حيث ان انا اخلي الاسم دي ده يكون عبارة عن متغير.
+variable. خلي بالك من المثال ده باللي عليك. طيب.
+وانا هتدي للfunction دي ده الاسم. وهو هيدي الاسم ليه الprint ويتبع ليه. فانا افرط بدل ما عملت كريت لكل function بكل الاسم بتاعها.
+انا عملت الاسم متغير. وسبت الstructure بتاع الfunction بحيث ان انا هبصيله هنا مثلا محمد. هيعمللي print المحمد.
+هبصيله احمد هيعمللي print الاحمد. فخلال المية اسم هيبقى عندي function واحدة بس. انما هنا خلال المية اسم هيبقى عندي 100 function.
+لان انا عامل كريت لكل اسم بالfunction بتاعها. شايف المثال دي ده. خدوه وطبقوه على الcomponents والمثال اللي احنا عملنا دلوقتي.
+عارف احنا عملنا ايه. احنا عملنا لكل component لكل project الcomponent الخاص بيه. عملنا project 1 وعملنا project 2 وعملنا الcomponent بتاع project 3. طيب لو كان عندك 100 مشروع عايز تضيفهم في الصفحة بتاعتك.
+كان الحقيقة هيبقى عندك 100 file. كان هيبقى عندك 100 file. وده بيقتل مبدأ reusability او اعادة الاستخدام اللي بيحققه لك الcomponent.
+احنا الcomponent بيحقق لنا السوبريشن. واحنا حققنا مبدأ السوبريشن انه كل component في file وحدي وبسترعي الفيل دي. فالحمد لله.
+طيب فدلي مبدأ reusability. صح كده او اعادة الاستخدام. طيب لو انا عندي 100 مشروع هكريه 100 file.
+في حين ان انا لو جيت فكرت بمبدأ reusability وحققته. هقول طب ما نقل. دلوقتي انا عندي الستركشر بتاع الproject ثابت هو عبارة عن title description technology.
+اللي بتغير ال data اللي جواه. طب ايه رأيك لو انا باصي ال data دي بشكل دايناميك. الtitle والdescription والtechnology.
+اباصي ال data دي بشكل دايناميك. ركز في كلمة دي. وهو ياخد ال data دي ويظهرها هنا.
+بحيث ان انا مثلا هاجي في الapp file. هستدعي الcomponent. كده انا عندي component عبارة عن component.
+الcomponent دي ده انا هستدعيه هنا. هنا مثلا component هسميه project. مش project 1 ولا project 2 لأ هسميه project بس.
+خلاص. ومجرد ان انا هستدعي ال project هنا. وهديله ال data الخاصة بيه.
+تمام تمام. هديله ال data بتاع اول مشروع. وليكم مثلا ال title كذا ال description كذا والtechnology كذا.
+وهو ياخد ال data دي دي في السطر دي ده. خلاص ياخد ال data دي دي. ويروح حاططها دايناميك هنا.
+وبعد كده لو انا عايز ازود project تاني. ببساطة شديدة هكتب نفس ال project. ولكن ب data مختلفة.
+زي موضوع ال functions يا جماعة. انت عايز مثلا تطبع اسمين. فبتكتب print name.
+بتكتب محمد. بعديها بسطر تكتب print name. وتكتب احمد.
+نفس النظام. هستدعي هنا نفس ال component. بس بال data الاولينية.
+وهنا هستدعي برضو نفس ال component. ولكن ب data مختلفة. بالشكل ده.
+فهيروح على نفس الفايل. ولكن هيغير ال data. وتبقى ال data جديدة.
+وهكذا. فلو حضرتك عندك 100 project. 100 section عايز تضيفه.
+الحقيقة ان انت هتضيفه معادي. وهيبقى عندك فايل واحد فقط. طيب.
+دلوقتي عرفنا ايه هو مبدأ irreusability. ان انت تخلي ال component بتاعك dynamic. طيب.
+ازاي بقى نحقق المبدأ دي ده. هو ده اللي هنعرفه من خلال ال props وال states. وده اللي هندرسه المرة الجاية بإذن الله.
+والى هنا شكرا. والسلام عليكم ورحمة الله وبركاته.
+        </div>
+    </div>
+
+    <script>
+        let isPlaying = false;
+        let isMuted = false;
+
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            document.getElementById('playButton').textContent = isPlaying ? 'Pause' : 'Play';
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            document.getElementById('muteButton').textContent = isMuted ? 'Unmute' : 'Mute';
+        }
+
+        function openSettings() {
+            alert('Settings panel would open here');
+        }
+
+        // Add timestamp to transcript
+        document.addEventListener('DOMContentLoaded', function() {
+            const timestamp = new Date('2025-01-16T00:14:00');
+            document.querySelector('.timestamp').textContent = timestamp.toLocaleString();
+        });
+    </script>
+</body>
+</html>

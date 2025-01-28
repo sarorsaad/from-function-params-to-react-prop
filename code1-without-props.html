@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاريعي | My Portfolio</title>
+    <!-- React CDN Links -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            direction: rtl;
+        }
+        #root {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .project {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .project h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .project p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .technologies {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .tech-tag {
+            background-color: #e1f5fe;
+            color: #0288d1;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .page-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- React Component Script -->
+    <script type="text/babel">
+        // Project 1 Component
+        function Project1() {
+            return (
+                <div className="project">
+                    <h1>Admin Dashboard</h1>
+                    <p>لوحة تحكم إدارية متكاملة تتيح للمستخدم إدارة المحتوى والمستخدمين والإحصائيات بشكل سهل وفعال. تم تصميمها بواجهة مستخدم حديثة وسهلة الاستخدام.</p>
+                    
+                </div>
+            );
+        }
+
+        // Project 2 Component
+        function Project2() {
+            return (
+                <div className="project">
+                    <h1>E-commerce Platform</h1>
+                    <p>منصة تجارة إلكترونية متكاملة تتيح للتجار عرض منتجاتهم وإدارة مبيعاتهم. تشمل نظام سلة مشتريات وإدارة طلبات متقدمة.</p>
+                    
+                </div>
+            );
+        }
+
+        // Project 3 Component
+        function Project3() {
+            return (
+                <div className="project">
+                    <h1>Social Media App</h1>
+                    <p>تطبيق تواصل اجتماعي يتيح للمستخدمين التفاعل ومشاركة المحتوى. يشمل ميزات الدردشة المباشرة ومشاركة الصور والفيديو.</p>
+                    
+                </div>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            return (
+                <div>
+                    <h1 className="page-title">مشاريعي</h1>
+                    <Project1 />
+                    <Project2 />
+                    <Project3 />
+                </div>
+            );
+        }
+
+        // Render the App
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

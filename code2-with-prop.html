@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاريعي | My Portfolio - Reusable Components</title>
+    <!-- React CDN Links -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            direction: rtl;
+        }
+        #root {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .project {
+            background-color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .project h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .project p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .page-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- React Component Script -->
+    <script type="text/babel">
+        // مكون المشروع القابل لإعادة الاستخدام
+        function Project(props) {
+            return (
+                <div className="project">
+                    <h1>{props.title}</h1>
+                    <p>{props.description}</p>
+                </div>
+            );
+        }
+
+        // المكون الرئيسي للتطبيق
+        function App() {
+            // بيانات المشاريع - يمكن إضافة المزيد من المشاريع هنا بسهولة
+            const projects = [
+                {
+                    title: "لوحة التحكم",
+                    description: "لوحة تحكم إدارية متكاملة تتيح للمستخدم إدارة المحتوى والمستخدمين والإحصائيات بشكل سهل وفعال."
+                },
+                {
+                    title: "متجر إلكتروني",
+                    description: "منصة تجارة إلكترونية متكاملة تتيح للتجار عرض منتجاتهم وإدارة مبيعاتهم."
+                },
+                {
+                    title: "تطبيق اجتماعي",
+                    description: "تطبيق تواصل اجتماعي يتيح للمستخدمين التفاعل ومشاركة المحتوى."
+                }
+            ];
+
+            return (
+                <div>
+                    <h1 className="page-title">مشاريعي</h1>
+                    {/* استخدام المكون القابل لإعادة الاستخدام مع بيانات مختلفة */}
+                    {projects.map((project, index) => (
+                        <Project
+                            key={index}
+                            title={project.title}
+                            description={project.description}
+                        />
+                    ))}
+                </div>
+            );
+        }
+
+        // تحميل التطبيق
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

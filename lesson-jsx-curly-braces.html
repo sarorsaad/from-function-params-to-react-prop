@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرح الأقواس المعقوفة { } في JSX</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5em;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.1em;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block code {
+            direction: ltr;
+            text-align: left;
+            unicode-bidi: embed;
+        }
+
+        /* Code syntax highlighting */
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .function { color: #dcdcaa; }
+        .comment { color: #6a9955; }
+        .number { color: #b5cea8; }
+        .operator { color: #d4d4d4; }
+        .variable { color: #9cdcfe; }
+
+        .example {
+            background-color: #f8f9fa;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .note {
+            background-color: #e7f3fe;
+            border-right: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-right: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border-right: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            border-right: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .live-demo {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #e1e4e8;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>شرح الأقواس المعقوفة { } في JSX 🎯</h1>
+
+        <div class="note">
+            الأقواس المعقوفة { } هي الطريقة التي نخبر بها React: "هذا كود JavaScript، قم بتنفيذه"
+        </div>
+
+        <h2>1. الاستخدام الأساسي للأقواس المعقوفة 📌</h2>
+        <div class="code-block">
+            <pre><span class="comment">// 1. مع المتغيرات البسيطة</span>
+<span class="keyword">const</span> <span class="variable">name</span> = <span class="string">"أحمد"</span>;
+&lt;<span class="keyword">div</span>&gt;مرحباً {<span class="variable">name</span>}&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// 2. مع العمليات الحسابية</span>
+<span class="keyword">const</span> <span class="variable">age</span> = <span class="number">25</span>;
+&lt;<span class="keyword">div</span>&gt;عمرك بعد 5 سنوات: {<span class="variable">age</span> + <span class="number">5</span>}&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// 3. مع الشروط (ternary)</span>
+&lt;<span class="keyword">div</span>&gt;
+    {<span class="variable">age</span> >= <span class="number">18</span> ? <span class="string">"بالغ"</span> : <span class="string">"قاصر"</span>}
+&lt;/<span class="keyword">div</span>&gt;</pre>
+        </div>
+
+        <div id="basic-demo" class="live-demo">
+            <!-- React will render here -->
+        </div>
+
+        <h2>2. استخدام الأقواس المعقوفة مع الخصائص (Props) 🔄</h2>
+        <div class="code-block">
+            <pre><span class="comment">// يمكن استخدام { } في خصائص العناصر</span>
+<span class="keyword">const</span> <span class="variable">buttonText</span> = <span class="string">"انقر هنا"</span>;
+<span class="keyword">const</span> <span class="variable">isDisabled</span> = <span class="keyword">true</span>;
+
+&lt;<span class="keyword">button</span>
+    <span class="variable">disabled</span>={<span class="variable">isDisabled</span>}
+    <span class="variable">className</span>={<span class="variable">isDisabled</span> ? <span class="string">'disabled-btn'</span> : <span class="string">'active-btn'</span>}
+&gt;
+    {<span class="variable">buttonText</span>}
+&lt;/<span class="keyword">button</span>&gt;</pre>
+        </div>
+
+        <div id="props-demo" class="live-demo">
+            <!-- React will render here -->
+        </div>
+
+        <h2>3. استخدام الأقواس المعقوفة مع map 🗺️</h2>
+        <div class="code-block">
+            <pre><span class="keyword">const</span> <span class="variable">items</span> = [
+    { <span class="variable">id</span>: <span class="number">1</span>, <span class="variable">name</span>: <span class="string">"عنصر 1"</span> },
+    { <span class="variable">id</span>: <span class="number">2</span>, <span class="variable">name</span>: <span class="string">"عنصر 2"</span> }
+];
+
+&lt;<span class="keyword">div</span>&gt;
+    {<span class="variable">items</span>.<span class="function">map</span>(<span class="variable">item</span> => (
+        &lt;<span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">item</span>.<span class="variable">id</span>}&gt;
+            {<span class="variable">item</span>.<span class="variable">name</span>}
+        &lt;/<span class="keyword">div</span>&gt;
+    ))}
+&lt;/<span class="keyword">div</span>&gt;</pre>
+        </div>
+
+        <div id="map-demo" class="live-demo">
+            <!-- React will render here -->
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        <script type="text/babel">
+            // Basic Demo
+            function BasicDemo() {
+                const name = "أحمد";
+                const age = 25;
+
+                return (
+                    <div style={{ direction: 'rtl' }}>
+                        <div style={{ padding: '10px', backgroundColor: '#fff', margin: '5px 0', borderRadius: '4px' }}>
+                            مرحباً {name}
+                        </div>
+                        <div style={{ padding: '10px', backgroundColor: '#fff', margin: '5px 0', borderRadius: '4px' }}>
+                            عمرك بعد 5 سنوات: {age + 5}
+                        </div>
+                        <div style={{ padding: '10px', backgroundColor: '#fff', margin: '5px 0', borderRadius: '4px' }}>
+                            {age >= 18 ? "بالغ ✅" : "قاصر ❌"}
+                        </div>
+                    </div>
+                );
+            }
+
+            // Props Demo
+            function PropsDemo() {
+                const [isDisabled, setIsDisabled] = React.useState(false);
+                const buttonText = "انقر هنا";
+
+                return (
+                    <div style={{ direction: 'rtl' }}>
+                        <button
+                            onClick={() => setIsDisabled(!isDisabled)}
+                            disabled={isDisabled}
+                            style={{
+                                padding: '10px 20px',
+                                backgroundColor: isDisabled ? '#ccc' : '#2196F3',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '4px',
+                                cursor: isDisabled ? 'not-allowed' : 'pointer'
+                            }}
+                        >
+                            {buttonText} {isDisabled ? '(معطل)' : '(نشط)'}
+                        </button>
+                    </div>
+                );
+            }
+
+            // Map Demo
+            function MapDemo() {
+                const items = [
+                    { id: 1, name: "تفاح 🍎", price: 5 },
+                    { id: 2, name: "موز 🍌", price: 3 },
+                    { id: 3, name: "برتقال 🍊", price: 4 }
+                ];
+
+                return (
+                    <div style={{ direction: 'rtl' }}>
+                        {items.map(item => (
+                            <div key={item.id} style={{
+                                padding: '10px',
+                                backgroundColor: '#fff',
+                                margin: '5px 0',
+                                borderRadius: '4px',
+                                display: 'flex',
+                                justifyContent: 'space-between'
+                            }}>
+                                <span>{item.name}</span>
+                                <span>{item.price} ريال</span>
+                            </div>
+                        ))}
+                    </div>
+                );
+            }
+
+            // Render all demos
+            const basicRoot = ReactDOM.createRoot(document.getElementById('basic-demo'));
+            basicRoot.render(<BasicDemo />);
+
+            const propsRoot = ReactDOM.createRoot(document.getElementById('props-demo'));
+            propsRoot.render(<PropsDemo />);
+
+            const mapRoot = ReactDOM.createRoot(document.getElementById('map-demo'));
+            mapRoot.render(<MapDemo />);
+        </script>
+
+        <div class="note">
+            <h3>متى نستخدم { }؟ 🤔</h3>
+            <ul>
+                <li>عند استخدام متغيرات JavaScript</li>
+                <li>عند إجراء عمليات حسابية</li>
+                <li>عند كتابة شروط (ternary operations)</li>
+                <li>عند استخدام دوال مثل map</li>
+                <li>في خصائص (props) العناصر</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <h3>أخطاء شائعة ⚠️</h3>
+            <div class="error">
+                <strong>❌ خطأ</strong>
+                <div class="code-block">
+                    <pre>&lt;<span class="keyword">div</span> <span class="variable">className</span>=<span class="string">{active-class}</span>&gt;
+<span class="comment">// يجب أن تكون "active-class" داخل علامات اقتباس</span></pre>
+                </div>
+            </div>
+            <div class="success">
+                <strong>✅ صحيح</strong>
+                <div class="code-block">
+                    <pre>&lt;<span class="keyword">div</span> <span class="variable">className</span>={<span class="string">"active-class"</span>}&gt;</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="note">
+            <h3>نصائح مهمة 💡</h3>
+            <ul>
+                <li>لا تنسَ إغلاق الأقواس المعقوفة</li>
+                <li>تأكد من استخدام علامات الاقتباس للنصوص داخل { }</li>
+                <li>يمكن استخدام أي تعبير JavaScript صالح داخل { }</li>
+                <li>لا يمكن استخدام عبارات if/else داخل { }، استخدم العمليات الشرطية بدلاً منها</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

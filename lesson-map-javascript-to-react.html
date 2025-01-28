@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرح Map: من JavaScript إلى React</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 1.5em;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5em;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.1em;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block code {
+            direction: ltr;
+            text-align: left;
+            unicode-bidi: embed;
+        }
+
+        /* Code syntax highlighting */
+        .keyword { color: #569cd6; }
+        .string { color: #ce9178; }
+        .function { color: #dcdcaa; }
+        .comment { color: #6a9955; }
+        .number { color: #b5cea8; }
+        .operator { color: #d4d4d4; }
+        .variable { color: #9cdcfe; }
+
+        .demo-section {
+            background-color: #f8f9fa;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .note {
+            background-color: #e7f3fe;
+            border-right: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-right: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-left: 10px;
+        }
+
+        .step {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .live-demo {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid #e1e4e8;
+        }
+
+        .output {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>شرح Map: من JavaScript إلى React 🚀</h1>
+
+        <div class="note">
+            سنتعلم كيف نستخدم دالة map في JavaScript وكيف نطبقها في React لإنشاء واجهات ديناميكية.
+        </div>
+
+        <div class="step">
+            <h2>1. نقطة البداية: دالة map في JavaScript العادي 📚</h2>
+            <div class="code-block">
+                <pre><span class="comment">// لدينا مصفوفة أرقام</span>
+<span class="keyword">const</span> <span class="variable">numbers</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];
+
+<span class="comment">// استخدام map بشكل عادي في JavaScript</span>
+<span class="keyword">const</span> <span class="variable">doubledNumbers</span> = <span class="variable">numbers</span>.<span class="function">map</span>(<span class="variable">number</span> => <span class="variable">number</span> * <span class="number">2</span>);
+<span class="comment">// النتيجة: [2, 4, 6, 8]</span></pre>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>2. الدالة السهمية (Arrow Function) ⚡</h2>
+            <div class="code-block">
+                <pre><span class="comment">// الطريقة التقليدية</span>
+<span class="variable">numbers</span>.<span class="function">map</span>(<span class="keyword">function</span>(<span class="variable">number</span>) {
+    <span class="keyword">return</span> <span class="variable">number</span> * <span class="number">2</span>;
+});
+
+<span class="comment">// الطريقة الحديثة (arrow function)</span>
+<span class="variable">numbers</span>.<span class="function">map</span>(<span class="variable">number</span> => <span class="variable">number</span> * <span class="number">2</span>);</pre>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>3. المعاملات (Parameters) في map 📝</h2>
+            <div class="code-block">
+                <pre><span class="comment">// معامل واحد (العنصر)</span>
+<span class="variable">array</span>.<span class="function">map</span>(<span class="variable">item</span> => ...)
+
+<span class="comment">// معاملان (العنصر والفهرس)</span>
+<span class="variable">array</span>.<span class="function">map</span>((<span class="variable">item</span>, <span class="variable">index</span>) => ...)
+
+<span class="comment">// ثلاثة معاملات (العنصر والفهرس والمصفوفة كاملة)</span>
+<span class="variable">array</span>.<span class="function">map</span>((<span class="variable">item</span>, <span class="variable">index</span>, <span class="variable">array</span>) => ...)</pre>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>4. استخدام map في React لتحويل المصفوفة إلى عناصر JSX 🔄</h2>
+            <div class="code-block">
+                <pre><span class="comment">// 1. لدينا مصفوفة من البيانات</span>
+<span class="keyword">const</span> <span class="variable">students</span> = [
+    { <span class="variable">id</span>: <span class="number">1</span>, <span class="variable">name</span>: <span class="string">"أحمد"</span> },
+    { <span class="variable">id</span>: <span class="number">2</span>, <span class="variable">name</span>: <span class="string">"سارة"</span> },
+    { <span class="variable">id</span>: <span class="number">3</span>, <span class="variable">name</span>: <span class="string">"محمد"</span> }
+];
+
+<span class="comment">// 2. نستخدم map لتحويلها إلى عناصر JSX</span>
+<span class="keyword">function</span> <span class="function">StudentsList</span>() {
+    <span class="keyword">return</span> (
+        &lt;<span class="keyword">div</span>&gt;
+            {<span class="variable">students</span>.<span class="function">map</span>((<span class="variable">student</span>, <span class="variable">index</span>) => (
+                &lt;<span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">student</span>.<span class="variable">id</span>}&gt;
+                    {<span class="variable">index</span> + <span class="number">1</span>}. {<span class="variable">student</span>.<span class="variable">name</span>}
+                &lt;/<span class="keyword">div</span>&gt;
+            ))}
+        &lt;/<span class="keyword">div</span>&gt;
+    );
+}</pre>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>5. مثال تدريجي: من JavaScript إلى React 🎯</h2>
+            <div class="code-block">
+                <pre><span class="comment">// خطوة 1: مصفوفة عادية</span>
+<span class="keyword">const</span> <span class="variable">fruits</span> = [<span class="string">"تفاح"</span>, <span class="string">"موز"</span>, <span class="string">"برتقال"</span>];
+
+<span class="comment">// خطوة 2: استخدام map في JavaScript</span>
+<span class="keyword">const</span> <span class="variable">fruitsList</span> = <span class="variable">fruits</span>.<span class="function">map</span>(<span class="variable">fruit</span> => <span class="string">"الفاكهة: "</span> + <span class="variable">fruit</span>);
+
+<span class="comment">// خطوة 3: استخدام map في React</span>
+<span class="keyword">function</span> <span class="function">FruitsList</span>() {
+    <span class="keyword">return</span> (
+        &lt;<span class="keyword">div</span>&gt;
+            {<span class="variable">fruits</span>.<span class="function">map</span>((<span class="variable">fruit</span>, <span class="variable">index</span>) => (
+                &lt;<span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">index</span>}&gt;
+                    {<span class="variable">index</span> + <span class="number">1</span>}. الفاكهة: {<span class="variable">fruit</span>}
+                &lt;/<span class="keyword">div</span>&gt;
+            ))}
+        &lt;/<span class="keyword">div</span>&gt;
+    );
+}</pre>
+            </div>
+        </div>
+
+        <div class="step">
+            <h2>6. لماذا نضع map داخل { } في JSX؟ 🤔</h2>
+            
+            <div class="note">
+                في React/JSX، نستخدم { } للتعبير عن الكود JavaScript داخل HTML. 
+                هي طريقة لنقول لـ React: "هذا كود JavaScript، قم بتنفيذه"
+            </div>
+
+            <h3>مثال تدريجي 🔄</h3>
+            <div class="code-block">
+                <pre><span class="comment">// 1. هذا HTML عادي</span>
+&lt;<span class="keyword">div</span>&gt;Hello&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// 2. هذا JSX مع متغير JavaScript</span>
+<span class="keyword">const</span> <span class="variable">name</span> = <span class="string">"أحمد"</span>;
+&lt;<span class="keyword">div</span>&gt;{<span class="variable">name</span>}&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// 3. هذا JSX مع map (لأنها كود JavaScript)</span>
+&lt;<span class="keyword">div</span>&gt;
+    {<span class="variable">courses</span>.<span class="function">map</span>(<span class="variable">course</span> => (
+        &lt;<span class="keyword">div</span>&gt;{<span class="variable">course</span>.<span class="variable">name</span>}&lt;/<span class="keyword">div</span>&gt;
+    ))}
+&lt;/<span class="keyword">div</span>&gt;</pre>
+            </div>
+
+            <h3>تشبيه بسيط 🌟</h3>
+            <div class="code-block">
+                <pre><span class="comment">// الرسالة بدون متغيرات</span>
+&lt;<span class="keyword">div</span>&gt;
+    مرحباً، كيف حالك؟
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// الرسالة مع متغير</span>
+<span class="keyword">const</span> <span class="variable">name</span> = <span class="string">"أحمد"</span>;
+&lt;<span class="keyword">div</span>&gt;
+    مرحباً {<span class="variable">name</span>}، كيف حالك؟
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// الرسالة مع قائمة أسماء (map)</span>
+<span class="keyword">const</span> <span class="variable">names</span> = [<span class="string">"أحمد"</span>, <span class="string">"محمد"</span>, <span class="string">"سارة"</span>];
+&lt;<span class="keyword">div</span>&gt;
+    مرحباً:
+    {<span class="variable">names</span>.<span class="function">map</span>(<span class="variable">name</span> => (
+        &lt;<span class="keyword">div</span>&gt;{<span class="variable">name</span>}&lt;/<span class="keyword">div</span>&gt;
+    ))}
+&lt;/<span class="keyword">div</span>&gt;</pre>
+            </div>
+
+            <div class="warning">
+                <h3>لماذا نحتاج { }؟ ⚠️</h3>
+                <div class="code-block">
+                    <pre><span class="comment">// ❌ خطأ</span>
+&lt;<span class="keyword">div</span>&gt;
+    courses.map(course => ...)
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// ❌ خطأ</span>
+&lt;<span class="keyword">div</span>&gt;
+    {<span class="variable">courses</span>.<span class="function">map</span>(<span class="variable">course</span> => ...)}
+    <span class="comment">{/* نسيان key */}</span>
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// ✅ صحيح</span>
+&lt;<span class="keyword">div</span>&gt;
+    {<span class="variable">courses</span>.<span class="function">map</span>(<span class="variable">course</span> => (
+        &lt;<span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">course</span>.<span class="variable">id</span>}&gt;
+            {<span class="variable">course</span>.<span class="variable">name</span>}
+        &lt;/<span class="keyword">div</span>&gt;
+    ))}
+&lt;/<span class="keyword">div</span>&gt;</pre>
+                </div>
+            </div>
+
+            <h3>مثال شامل 📝</h3>
+            <div class="code-block">
+                <pre><span class="keyword">function</span> <span class="function">CourseList</span>() {
+    <span class="keyword">const</span> <span class="variable">courses</span> = [
+        { <span class="variable">id</span>: <span class="number">1</span>, <span class="variable">name</span>: <span class="string">"React"</span>, <span class="variable">students</span>: <span class="number">20</span> },
+        { <span class="variable">id</span>: <span class="number">2</span>, <span class="variable">name</span>: <span class="string">"JavaScript"</span>, <span class="variable">students</span>: <span class="number">15</span> }
+    ];
+
+    <span class="keyword">return</span> (
+        &lt;<span class="keyword">div</span>&gt;
+            <span class="comment">{/* عنوان ديناميكي */}</span>
+            &lt;<span class="keyword">h1</span>&gt;{<span class="string">"قائمة المساقات ("</span> + <span class="variable">courses</span>.<span class="variable">length</span> + <span class="string">")"</span>}&lt;/<span class="keyword">h1</span>&gt;
+
+            <span class="comment">{/* قائمة المساقات باستخدام map */}</span>
+            {<span class="variable">courses</span>.<span class="function">map</span>(<span class="variable">course</span> => (
+                &lt;<span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">course</span>.<span class="variable">id</span>}&gt;
+                    <span class="comment">{/* اسم المساق */}</span>
+                    &lt;<span class="keyword">h2</span>&gt;{<span class="variable">course</span>.<span class="variable">name</span>}&lt;/<span class="keyword">h2</span>&gt;
+                    
+                    <span class="comment">{/* عدد الطلاب مع شرط */}</span>
+                    &lt;<span class="keyword">p</span>&gt;{<span class="variable">course</span>.<span class="variable">students</span> &gt; <span class="number">15</span> ? <span class="string">"صف ممتلئ"</span> : <span class="string">"متاح التسجيل"</span>}&lt;/<span class="keyword">p</span>&gt;
+                &lt;/<span class="keyword">div</span>&gt;
+            ))}
+        &lt;/<span class="keyword">div</span>&gt;
+    );
+}</pre>
+            </div>
+
+            <div class="note">
+                <h3>تذكر دائماً 🎯</h3>
+                <p>نستخدم { } في JSX لـ:</p>
+                <ul>
+                    <li>تنفيذ كود JavaScript</li>
+                    <li>عرض قيم المتغيرات</li>
+                    <li>تنفيذ العمليات الحسابية</li>
+                    <li>كتابة الشروط</li>
+                    <li>استخدام دوال مثل map</li>
+                </ul>
+            </div>
+
+            <div id="curly-braces-demo" class="live-demo">
+                <!-- React will render here -->
+            </div>
+
+            <script type="text/babel">
+                function CurlyBracesDemo() {
+                    const courses = [
+                        { id: 1, name: "React", students: 20 },
+                        { id: 2, name: "JavaScript", students: 15 },
+                        { id: 3, name: "HTML", students: 10 }
+                    ];
+
+                    return (
+                        <div style={{ direction: 'rtl' }}>
+                            <h3>مثال حي لاستخدام { }</h3>
+                            <h4>{"قائمة المساقات (" + courses.length + ")"}</h4>
+                            {courses.map(course => (
+                                <div key={course.id} style={{
+                                    padding: '10px',
+                                    margin: '5px 0',
+                                    backgroundColor: course.students > 15 ? '#ffebee' : '#e8f5e9',
+                                    borderRadius: '4px'
+                                }}>
+                                    <strong>{course.name}</strong>
+                                    <p>{course.students > 15 ? "صف ممتلئ ⛔" : "متاح التسجيل ✅"}</p>
+                                </div>
+                            ))}
+                        </div>
+                    );
+                }
+
+                const curlyBracesRoot = ReactDOM.createRoot(document.getElementById('curly-braces-demo'));
+                curlyBracesRoot.render(<CurlyBracesDemo />);
+            </script>
+        </div>
+
+        <div class="warning">
+            <h3>أخطاء شائعة وتصحيحها ⚠️</h3>
+            <div class="code-block">
+                <pre><span class="comment">// ❌ خطأ</span>
+&lt;<span class="keyword">div</span>&gt;
+    courses.map(course => ...)
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// ❌ خطأ</span>
+&lt;<span class="keyword">div</span>&gt;
+    {<span class="variable">courses</span>.<span class="function">map</span>(<span class="variable">course</span> => ...)}
+    <span class="comment">{/* نسيان key */}</span>
+&lt;/<span class="keyword">div</span>&gt;
+
+<span class="comment">// ✅ صحيح</span>
+&lt;<span class="keyword">div</span>&gt;
+    {<span class="variable">courses</span>.<span class="function">map</span>(<span class="variable">course</span> => (
+        &lt;<span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">course</span>.<span class="variable">id</span>}&gt;
+            {<span class="variable">course</span>.<span class="variable">name</span>}
+        &lt;/<span class="keyword">div</span>&gt;
+    ))}
+&lt;/<span class="keyword">div</span>&gt;</pre>
+            </div>
+        </div>
+
+        <div id="live-demo" class="live-demo">
+            <!-- React will render here -->
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        <script type="text/babel">
+            function Demo() {
+                const students = [
+                    { id: 1, name: "أحمد" },
+                    { id: 2, name: "سارة" },
+                    { id: 3, name: "محمد" }
+                ];
+
+                return (
+                    <div>
+                        <h3>مثال حي:</h3>
+                        <div style={{ direction: 'rtl' }}>
+                            {students.map((student, index) => (
+                                <div key={student.id} style={{
+                                    padding: '10px',
+                                    margin: '5px 0',
+                                    backgroundColor: '#fff',
+                                    borderRadius: '4px',
+                                    boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                                }}>
+                                    {index + 1}. {student.name}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                );
+            }
+
+            const root = ReactDOM.createRoot(document.getElementById('live-demo'));
+            root.render(<Demo />);
+        </script>
+
+        <div class="note">
+            <h3>⭐ النقاط المهمة للتذكر</h3>
+            <ol>
+                <li>دالة map تعمل فقط على المصفوفات</li>
+                <li>كل عنصر في map في React يحتاج إلى key</li>
+                <li>يمكنك استخدام index كمعامل ثاني إذا احتجت إلى ترقيم</li>
+                <li>النتيجة النهائية هي مصفوفة من عناصر JSX</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <h3>🚫 تجنب هذه الأخطاء</h3>
+            <ul>
+                <li>نسيان استخدام key في React</li>
+                <li>استخدام map مع متغير ليس مصفوفة</li>
+                <li>نسيان return في الدالة السهمية الطويلة</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

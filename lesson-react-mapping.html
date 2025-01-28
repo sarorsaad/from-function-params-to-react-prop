@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شرح Map في React - تكرار العناصر بسهولة</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 1em;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5em;
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-top: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+        }
+
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 1.1em;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-block code {
+            direction: ltr;
+            text-align: left;
+            unicode-bidi: embed;
+        }
+
+        /* Code syntax highlighting */
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .comment { color: #6a9955; }
+        .code-block .punctuation { color: #d4d4d4; }
+        .code-block .operator { color: #d4d4d4; }
+        .code-block .variable { color: #9cdcfe; }
+
+        .demo-section {
+            background-color: #f8f9fa;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example-card {
+            background-color: white;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border-right: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            border-right: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            border-right: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .note {
+            background-color: #e7f3fe;
+            border-right: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .live-demo {
+            margin: 30px 0;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .product {
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .in-stock {
+            background-color: #d4edda;
+            border: 1px solid #28a745;
+        }
+
+        .out-of-stock {
+            background-color: #f8d7da;
+            border: 1px solid #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>شرح Map في React - تكرار العناصر بسهولة 🔄</h1>
+
+        <div class="note">
+            تعتبر دالة map من أهم الأدوات في React للتعامل مع المصفوفات وعرض العناصر المتكررة بشكل ديناميكي.
+        </div>
+
+        <h2><span class="emoji">🌟</span> المثال الأساسي</h2>
+        <div class="code-block">
+            <pre>
+// لدينا مصفوفة من الأسماء
+const names = ["أحمد", "محمد", "سارة"];
+
+function NamesList() {
+    return (
+        &lt;div&gt;
+            {names.map((name, index) => (
+                &lt;div key={index}&gt;{name}&lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}</pre>
+        </div>
+
+        <h2><span class="emoji">🤔</span> لماذا نحتاج map؟</h2>
+        <div class="error">
+            <strong>بدون map، سنضطر لكتابة:</strong>
+            <div class="code-block">
+                <pre>
+return (
+    &lt;div&gt;
+        &lt;div&gt;{names[0]}&lt;/div&gt;
+        &lt;div&gt;{names[1]}&lt;/div&gt;
+        &lt;div&gt;{names[2]}&lt;/div&gt;
+    &lt;/div&gt;
+);</pre>
+            </div>
+            <p>هذه الطريقة:</p>
+            <ul>
+                <li>✖️ متعبة</li>
+                <li>✖️ غير مرنة</li>
+                <li>✖️ لا تعمل مع المصفوفات ذات الطول المتغير</li>
+            </ul>
+        </div>
+
+        <h2><span class="emoji">📝</span> مثال عملي مع بيانات أكثر تعقيداً</h2>
+        <div class="demo-section">
+            <div class="code-block">
+                <pre>
+const students = [
+    { id: 1, name: "أحمد", grade: 85 },
+    { id: 2, name: "سارة", grade: 90 },
+    { id: 3, name: "محمد", grade: 95 }
+];
+
+function StudentsList() {
+    return (
+        &lt;div className="students-list"&gt;
+            {students.map((student) => (
+                &lt;div key={student.id} className="student-card"&gt;
+                    &lt;h3&gt;الاسم: {student.name}&lt;/h3&gt;
+                    &lt;p&gt;الدرجة: {student.grade}&lt;/p&gt;
+                &lt;/div&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}</pre>
+            </div>
+        </div>
+
+        <h2><span class="emoji">🎯</span> مثال تفاعلي مع المهام</h2>
+        <div id="tasks-demo" class="live-demo">
+            <!-- React will render here -->
+        </div>
+
+        <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+        <script type="text/babel">
+            function TaskList() {
+                const tasks = [
+                    { id: 1, text: "اشتري خبز", completed: false },
+                    { id: 2, text: "ادرس React", completed: true },
+                    { id: 3, text: "تمرن", completed: false }
+                ];
+
+                return (
+                    <div className="tasks-list">
+                        {tasks.map((task) => (
+                            <div 
+                                key={task.id} 
+                                className={`example-card ${task.completed ? 'success' : 'error'}`}
+                            >
+                                <span>{task.text}</span>
+                                <span>{task.completed ? " ✅" : " ❌"}</span>
+                            </div>
+                        ))}
+                    </div>
+                );
+            }
+
+            const tasksRoot = ReactDOM.createRoot(document.getElementById('tasks-demo'));
+            tasksRoot.render(<TaskList />);
+        </script>
+
+        <h2><span class="emoji">🎨</span> مثال مع تنسيقات مختلفة</h2>
+        <div id="products-demo" class="live-demo">
+            <!-- React will render here -->
+        </div>
+
+        <script type="text/babel">
+            function ProductList() {
+                const products = [
+                    { id: 1, name: "قميص", price: 100, inStock: true },
+                    { id: 2, name: "بنطلون", price: 150, inStock: false },
+                    { id: 3, name: "حذاء", price: 200, inStock: true }
+                ];
+
+                return (
+                    <div className="products">
+                        {products.map((product) => (
+                            <div 
+                                key={product.id}
+                                className={`product ${product.inStock ? 'in-stock' : 'out-of-stock'}`}
+                            >
+                                <h3>{product.name}</h3>
+                                <p>{product.price} ريال</p>
+                                <p>{product.inStock ? "متوفر ✅" : "غير متوفر ❌"}</p>
+                            </div>
+                        ))}
+                    </div>
+                );
+            }
+
+            const productsRoot = ReactDOM.createRoot(document.getElementById('products-demo'));
+            productsRoot.render(<ProductList />);
+        </script>
+
+        <h2><span class="emoji">⭐️</span> النقاط المهمة للتذكر</h2>
+        <div class="note">
+            <ol>
+                <li>
+                    <strong>دائماً استخدم key</strong>
+                    <div class="code-block">
+                        <pre><span class="keyword">const</span> <span class="variable">items</span> = [
+    { <span class="variable">id</span>: <span class="string">'1'</span>, <span class="variable">name</span>: <span class="string">'Item 1'</span> },
+    { <span class="variable">id</span>: <span class="string">'2'</span>, <span class="variable">name</span>: <span class="string">'Item 2'</span> }
+];
+
+{<span class="variable">items</span>.<span class="function">map</span>((<span class="variable">item</span>) => (
+    <span class="punctuation">&lt;</span><span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">item</span>.<span class="variable">id</span>}<span class="punctuation">&gt;</span>
+        {<span class="variable">item</span>.<span class="variable">name</span>}
+    <span class="punctuation">&lt;/</span><span class="keyword">div</span><span class="punctuation">&gt;</span>
+))}</pre>
+                    </div>
+                </li>
+                <li>
+                    <strong>يمكنك استخدام الشروط داخل map</strong>
+                    <div class="code-block">
+                        <pre>{<span class="variable">items</span>.<span class="function">map</span>((<span class="variable">item</span>) => (
+    <span class="variable">item</span>.<span class="variable">visible</span> && 
+    <span class="punctuation">&lt;</span><span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">item</span>.<span class="variable">id</span>}<span class="punctuation">&gt;</span>
+        {<span class="variable">item</span>.<span class="variable">name</span>}
+    <span class="punctuation">&lt;/</span><span class="keyword">div</span><span class="punctuation">&gt;</span>
+))}</pre>
+                    </div>
+                </li>
+                <li>
+                    <strong>يمكنك استخدام map مع التنسيقات</strong>
+                    <div class="code-block">
+                        <pre>{<span class="variable">items</span>.<span class="function">map</span>((<span class="variable">item</span>) => (
+    <span class="punctuation">&lt;</span><span class="keyword">div</span> 
+        <span class="variable">key</span>={<span class="variable">item</span>.<span class="variable">id</span>}
+        <span class="variable">className</span>={<span class="variable">item</span>.<span class="variable">status</span> === <span class="string">'active'</span> ? <span class="string">'active'</span> : <span class="string">'inactive'</span>}
+    <span class="punctuation">&gt;</span>
+        {<span class="variable">item</span>.<span class="variable">name</span>}
+    <span class="punctuation">&lt;/</span><span class="keyword">div</span><span class="punctuation">&gt;</span>
+))}</pre>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <h2><span class="emoji">🚫</span> أخطاء شائعة وحلولها</h2>
+        <div class="warning">
+            <h3>1. نسيان الـ key</h3>
+            <div class="error">
+                <strong>❌ خطأ</strong>
+                <div class="code-block">
+                    <pre>{<span class="variable">items</span>.<span class="function">map</span>((<span class="variable">item</span>) => (
+    <span class="punctuation">&lt;</span><span class="keyword">div</span><span class="punctuation">&gt;</span>
+        {<span class="variable">item</span>.<span class="variable">name</span>}
+    <span class="punctuation">&lt;/</span><span class="keyword">div</span><span class="punctuation">&gt;</span>
+))}</pre>
+                </div>
+            </div>
+            <div class="success">
+                <strong>✅ صحيح</strong>
+                <div class="code-block">
+                    <pre>{<span class="variable">items</span>.<span class="function">map</span>((<span class="variable">item</span>) => (
+    <span class="punctuation">&lt;</span><span class="keyword">div</span> <span class="variable">key</span>={<span class="variable">item</span>.<span class="variable">id</span>}<span class="punctuation">&gt;</span>
+        {<span class="variable">item</span>.<span class="variable">name</span>}
+    <span class="punctuation">&lt;/</span><span class="keyword">div</span><span class="punctuation">&gt;</span>
+))}</pre>
+                </div>
+            </div>
+
+            <h3>2. استخدام map خارج الـ return</h3>
+            <div class="error">
+                <strong>❌ خطأ</strong>
+                <div class="code-block">
+                    <pre><span class="keyword">const</span> <span class="variable">elements</span> = <span class="variable">items</span>.<span class="function">map</span>(...)
+<span class="keyword">return</span> &lt;<span class="keyword">div</span>&gt;{<span class="variable">elements</span>}&lt;/<span class="keyword">div</span>&gt;;</pre>
+                </div>
+            </div>
+            <div class="success">
+                <strong>✅ صحيح</strong>
+                <div class="code-block">
+                    <pre><span class="keyword">return</span> (
+    &lt;<span class="keyword">div</span>&gt;
+        {<span class="variable">items</span>.<span class="function">map</span>(...)}
+    &lt;/<span class="keyword">div</span>&gt;
+);</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
