@@ -5,11 +5,11 @@ This repository contains a comprehensive set of React lessons in Arabic, coverin
 ## Lessons Overview دروس المقرر
 
 1. [مقدمة عن الخصائص (Props)](./0-lesson-props-explanation.html)
-2. [شرح Props مع معاملات الدوال](./lesson-props-with-functions.html)
-3. [شرح Props مع المصفوفات](./lesson-props-with-arrays.html)
-4. [شرح Map في React](./lesson-react-mapping.html)
-5. [شرح Map: من JavaScript إلى React](./lesson-map-javascript-to-react.html)
-6. [شرح الأقواس المعقوفة في JSX](./lesson-jsx-curly-braces.html)
+2. [شرح Props مع معاملات الدوال](./1-lesson-props-with-functions.html)
+3. [شرح Map: من JavaScript إلى React](./2-lesson-map-javascript-to-react.html)
+4. [شرح Map في React](./3-lesson-react-mapping.html)
+5. [شرح Props مع المصفوفات](./4-lesson-props-with-arrays.html)
+6. [شرح الأقواس المعقوفة في JSX](./5-lesson-jsx-curly-braces.html)
 
 ## Features الميزات
 
